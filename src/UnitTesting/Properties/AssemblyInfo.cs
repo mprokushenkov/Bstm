@@ -1,8 +1,8 @@
 ﻿using System.Reflection;
 
 [assembly: AssemblyTitle("Bstm.UnitTesting")]
-[assembly: AssemblyDescription("Support code for Bstm class library unit tests")]
+[assembly: AssemblyDescription("Bstm class library unit tests supporting types")]
 
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
-[assembly: AssemblyInformationalVersion("1.0.0")]
+[assembly: AssemblyVersion("1.0.3.0")]
+[assembly: AssemblyFileVersion("1.0.3.0")]
+[assembly: AssemblyInformationalVersion("1.0.3")]

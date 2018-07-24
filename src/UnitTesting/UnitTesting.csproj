@@ -141,12 +141,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Common\Common.csproj">
-      <Project>{94774117-225a-4413-9325-d93b246ef092}</Project>
-      <Name>Common</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="App_Readme\Compare-NET-Objects-Help.txt" />
   </ItemGroup>
   <ItemGroup>

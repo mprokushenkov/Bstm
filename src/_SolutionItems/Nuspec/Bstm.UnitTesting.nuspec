@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>Bstm.UnitTesting</id>
+    <version>1.0.3</version>
+    <title>Bstm.UnitTesting</title>
+    <authors>bassmaster</authors>
+    <owners>bassmaster</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Bstm class library unit tests supporting code.</description>
+    <dependencies>
+      <dependency id="Albedo" version="2.0.0" />
+      <dependency id="AutoFixture" version="4.5.0" />
+      <dependency id="AutoFixture.AutoMoq" version="4.5.0" />
+      <dependency id="AutoFixture.Idioms" version="4.5.0" />
+      <dependency id="AutoFixture.Xunit2" version="4.5.0" />
+      <dependency id="AutoFixtureMoq" version="1.0.0" />
+      <dependency id="Castle.Core" version="4.3.1" />
+      <dependency id="Castle.Windsor" version="4.1.0" />
+      <dependency id="CompareNETObjects" version="4.55.0.0" />
+      <dependency id="Fare" version="2.1.1" />
+      <dependency id="FluentAssertions" version="5.4.1" />
+      <dependency id="JetBrains.Annotations" version="11.1.0" />
+      <dependency id="Moq" version="4.9.0" />
+      <dependency id="System.Reactive" version="4.0.0" />
+      <dependency id="System.Reactive.Interfaces" version="4.0.0" />
+      <dependency id="System.Runtime.CompilerServices.Unsafe" version="4.5.1" />
+      <dependency id="System.Threading.Tasks.Extensions" version="4.5.1" />
+      <dependency id="System.ValueTuple" version="4.5.0" />
+      <dependency id="xunit" version="2.4.0" />
+      <dependency id="xunit.abstractions" version="2.0.2" />
+      <dependency id="xunit.analyzers" version="0.10.0" />
+      <dependency id="xunit.assert" version="2.4.0" />
+      <dependency id="xunit.core" version="2.4.0" />
+      <dependency id="xunit.extensibility.core" version="2.4.0" />
+      <dependency id="xunit.extensibility.execution" version="2.4.0" />
+      <dependency id="xunit.runner.visualstudio" version="2.4.0" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="..\..\UnitTesting\bin\Release\Bstm.UnitTesting.dll" target="lib\Bstm.UnitTesting.dll" />
+    <file src="..\..\UnitTesting\bin\Release\Bstm.UnitTesting.pdb" target="lib\Bstm.UnitTesting.pdb" />  
+  </files>
+</package>
