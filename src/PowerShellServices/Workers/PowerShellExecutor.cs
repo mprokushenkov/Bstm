@@ -34,7 +34,10 @@ namespace Bstm.PowerShellServices.Workers
 
             using (var runspace = CreateRunspace())
             {
-                runspace.Open();
+                if (runspace.RunspaceStateInfo.State != RunspaceState.Opened)
+                {
+                    runspace.Open();
+                }
 
                 // Propogate activityId because runspace.Open() creates new one.
                 Trace.CorrelationManager.ActivityId = activityId;
@@ -88,6 +91,7 @@ namespace Bstm.PowerShellServices.Workers
 
             logger.Debug("Import snapins {@SnapIns}.", SnapIns);
             SnapIns.ForEach(s => session.ImportPSSnapIn(s, out var _));
+
             return session;
         }
 
@@ -104,6 +108,7 @@ namespace Bstm.PowerShellServices.Workers
 
             logger.Debug("Create local runspace");
             var runspace = RunspaceFactory.CreateRunspace(CreateSession());
+            runspace.Open();
 
             logger.Debug("Set variable 'ErrorActionPreference' as 'Continue'.");
 
