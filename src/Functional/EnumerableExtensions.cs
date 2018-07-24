@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Collections.Immutable;
 using System.Linq;
 using static Bstm.Common.Guard;
 
@@ -31,7 +30,7 @@ namespace Bstm.Functional
             CheckNull(enumerable, nameof(enumerable));
             CheckNull(action, nameof(action));
 
-            enumerable.Map(action.ToFunc()).ToImmutableArray();
+            enumerable.Map(action.ToFunc());
         }
     }
 }
