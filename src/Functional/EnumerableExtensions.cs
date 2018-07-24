@@ -24,13 +24,5 @@ namespace Bstm.Functional
 
             return enumerable.SelectMany(converter);
         }
-
-        public static void ForEach<T>(this IEnumerable<T> enumerable, Action<T> action)
-        {
-            CheckNull(enumerable, nameof(enumerable));
-            CheckNull(action, nameof(action));
-
-            enumerable.Map(action.ToFunc());
-        }
     }
 }

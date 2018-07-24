@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>Bstm.Functional</id>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <title>Bstm.Functional</title>
     <authors>bassmaster</authors>
     <owners>bassmaster</owners>
@@ -10,7 +10,6 @@
     <description>Bstm class library  functional programming types.</description>
     <dependencies>
       <dependency id="JetBrains.Annotations" version="11.1.0" />
-      <dependency id="System.Collections.Immutable" version="1.5.0" />
       <dependency id="Bstm.Common" version="1.0.0" />
     </dependencies>
   </metadata>

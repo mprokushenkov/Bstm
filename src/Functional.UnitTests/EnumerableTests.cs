@@ -78,39 +78,5 @@ namespace Bstm.Functional.UnitTests
             // Verify outcome
             Assert.Equal(new[] { 0, 1, 2, 3, 4, 5 }, result);
         }
-
-        [Fact]
-        public void ForEachShouldThrowExceptionForNullEnumerable()
-        {
-            // Fixture setup
-            IEnumerable<int> enumerable = null;
-
-            // Exercise system and verify outcome
-            Assert.Throws<ArgumentNullException>(() => enumerable.ForEach(i => { }));
-        }
-
-        [Fact]
-        public void ForEachShouldThrowExceptionForNullAction()
-        {
-            // Fixture setup
-            var enumerable = Enumerable.Empty<int>();
-
-            // Exercise system and verify outcome
-            Assert.Throws<ArgumentNullException>(() => enumerable.ForEach(null));
-        }
-
-        [Fact]
-        public void ForEachShouldMakeSideEffect()
-        {
-            // Fixture setup
-            var sb = new StringBuilder();
-            var range = Enumerable.Range(0, 3);
-
-            // Exercise system
-            range.ForEach(i => sb.Append(i.ToString()));
-
-            // Verify outcome
-            Assert.Equal("012", sb.ToString());
-        }
     }
 }
