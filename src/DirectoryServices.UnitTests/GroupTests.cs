@@ -2,7 +2,6 @@
 using System.DirectoryServices.AccountManagement;
 using AutoFixture;
 using AutoFixture.Idioms;
-using Bstm.DirectoryServices;
 using Bstm.UnitTesting;
 using FluentAssertions;
 using Xunit;
@@ -31,16 +30,16 @@ namespace Bstm.DirectoryServices.UnitTests
         [InlineData(GroupScope.Global)]
         [InlineData(GroupScope.Local)]
         [InlineData(GroupScope.Universal)]
-        public void GroupTypeShouldBeStored(GroupScope groupScope)
+        public void GroupScopeShouldBeStored(GroupScope groupScope)
         {
             // Fixture setup
-            var group = Fixture.Create<DirectoryServices.Group>();
+            var group = Fixture.Create<Group>();
 
             // Exercise system
-            group.GroupScope = groupScope;
+            group.Scope = groupScope;
 
             // Verify outcome
-            group.GroupScope.Should().Be(groupScope);
+            group.Scope.Should().Be(groupScope);
         }
     }
 }

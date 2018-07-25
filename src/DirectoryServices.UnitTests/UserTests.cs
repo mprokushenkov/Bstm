@@ -1,7 +1,6 @@
 ﻿using System.DirectoryServices;
 using AutoFixture;
 using AutoFixture.Idioms;
-using Bstm.DirectoryServices;
 using Bstm.UnitTesting;
 using FluentAssertions;
 using Xunit;
@@ -30,7 +29,7 @@ namespace Bstm.DirectoryServices.UnitTests
         public void DepartmentShouldBeStored()
         {
             // Fixture setup
-            var user = Fixture.Create<DirectoryServices.User>();
+            var user = Fixture.Create<User>();
             var department = Fixture.Create<string>();
 
             // Exercise system
@@ -45,7 +44,7 @@ namespace Bstm.DirectoryServices.UnitTests
         public void DescriptionShouldBeStored()
         {
             // Fixture setup
-            var user = Fixture.Create<DirectoryServices.User>();
+            var user = Fixture.Create<User>();
             var description = Fixture.Create<string>();
 
             // Exercise system
@@ -60,7 +59,7 @@ namespace Bstm.DirectoryServices.UnitTests
         public void DivisionShouldBeStored()
         {
             // Fixture setup
-            var user = Fixture.Create<DirectoryServices.User>();
+            var user = Fixture.Create<User>();
             var division = Fixture.Create<string>();
 
             // Exercise system
@@ -75,7 +74,7 @@ namespace Bstm.DirectoryServices.UnitTests
         public void EmailAddressShouldBeStored()
         {
             // Fixture setup
-            var user = Fixture.Create<DirectoryServices.User>();
+            var user = Fixture.Create<User>();
             var emailAddress = Fixture.Create<string>();
 
             // Exercise system
@@ -90,7 +89,7 @@ namespace Bstm.DirectoryServices.UnitTests
         public void EmployeeIdShouldBeStored()
         {
             // Fixture setup
-            var user = Fixture.Create<DirectoryServices.User>();
+            var user = Fixture.Create<User>();
             var employeeId = Fixture.Create<string>();
 
             // Exercise system
@@ -105,7 +104,7 @@ namespace Bstm.DirectoryServices.UnitTests
         public void FaxNumberShouldBeStored()
         {
             // Fixture setup
-            var user = Fixture.Create<DirectoryServices.User>();
+            var user = Fixture.Create<User>();
             var faxNumber = Fixture.Create<string>();
 
             // Exercise system
@@ -120,7 +119,7 @@ namespace Bstm.DirectoryServices.UnitTests
         public void FirstNameShouldBeStored()
         {
             // Fixture setup
-            var user = Fixture.Create<DirectoryServices.User>();
+            var user = Fixture.Create<User>();
             var firstName = Fixture.Create<string>();
 
             // Exercise system
@@ -135,7 +134,7 @@ namespace Bstm.DirectoryServices.UnitTests
         public void HomeDirectoryShouldBeStored()
         {
             // Fixture setup
-            var user = Fixture.Create<DirectoryServices.User>();
+            var user = Fixture.Create<User>();
             var homeDirectory = Fixture.Create<string>();
 
             // Exercise system
@@ -150,7 +149,7 @@ namespace Bstm.DirectoryServices.UnitTests
         public void HomePageShouldBeStored()
         {
             // Fixture setup
-            var user = Fixture.Create<DirectoryServices.User>();
+            var user = Fixture.Create<User>();
             var homePage = Fixture.Create<string>();
 
             // Exercise system
@@ -165,7 +164,7 @@ namespace Bstm.DirectoryServices.UnitTests
         public void FullNameShouldBeStored()
         {
             // Fixture setup
-            var user = Fixture.Create<DirectoryServices.User>();
+            var user = Fixture.Create<User>();
             var fullName = Fixture.Create<string>();
 
             // Exercise system

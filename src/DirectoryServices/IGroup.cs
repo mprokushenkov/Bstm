@@ -4,7 +4,7 @@ namespace Bstm.DirectoryServices
 {
     public interface IGroup : IDirectoryObject
     {
-        GroupScope GroupScope { get; set; }
+        GroupScope Scope { get; set; }
 
         IGroupMembersCollection Members { get; }
     }

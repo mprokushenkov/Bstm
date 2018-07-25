@@ -17,9 +17,9 @@ namespace Bstm.DirectoryServices.UnitTests
             // Fixture setup
 
             // Exercise system and verify outcome
-            DirectoryServices.SchemaClassName.Group.ToString().Should().Be("group");
-            DirectoryServices.SchemaClassName.User.ToString().Should().Be("user");
-            DirectoryServices.SchemaClassName.OrganizationalUnit.ToString().Should().Be("organizationalUnit");
+            SchemaClassName.Group.ToString().Should().Be("group");
+            SchemaClassName.User.ToString().Should().Be("user");
+            SchemaClassName.OrganizationalUnit.ToString().Should().Be("organizationalUnit");
         }
     }
 }

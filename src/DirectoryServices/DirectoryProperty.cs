@@ -23,6 +23,9 @@ namespace Bstm.DirectoryServices
         public static DirectoryProperty Member { get; } =
             new DirectoryProperty("member", DirectoryPropertySyntax.DNString, true, typeof(DN), typeof(string));
 
+        public static DirectoryProperty MemberOf { get; } =
+            new DirectoryProperty("memberOf", DirectoryPropertySyntax.DNString, true, typeof(DN), typeof(string));
+
         public static DirectoryProperty ObjectClass { get; } =
             new DirectoryProperty("objectClass", DirectoryPropertySyntax.ObjectIdentifierString, true, typeof(string), typeof(string));
 

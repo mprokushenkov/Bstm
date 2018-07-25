@@ -12,7 +12,7 @@ namespace Bstm.DirectoryServices
             Members = new GroupMembersCollection(this);
         }
 
-        public GroupScope GroupScope
+        public GroupScope Scope
         {
             get
             {

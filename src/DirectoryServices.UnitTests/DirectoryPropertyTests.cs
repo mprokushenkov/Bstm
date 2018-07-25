@@ -6,6 +6,8 @@ using Bstm.UnitTesting;
 using FluentAssertions;
 using Xunit;
 using Xunit.Abstractions;
+using static Bstm.DirectoryServices.DirectoryProperty;
+using static Bstm.DirectoryServices.DirectoryPropertySyntax;
 
 namespace Bstm.DirectoryServices.UnitTests
 {
@@ -37,22 +39,23 @@ namespace Bstm.DirectoryServices.UnitTests
             // Fixture setup
 
             // Exercise system and verify outcome
-            CheckPropertyCorrectDefined(DirectoryProperty.Member, "member", DirectoryPropertySyntax.DNString, true);
-            CheckPropertyCorrectDefined(DirectoryProperty.GroupType, "groupType", DirectoryPropertySyntax.Enumeration, false);
-            CheckPropertyCorrectDefined(DirectoryProperty.DisplayName, "displayName", DirectoryPropertySyntax.UnicodeString, false);
-            CheckPropertyCorrectDefined(DirectoryProperty.SamAccountName, "samAccountName", DirectoryPropertySyntax.UnicodeString, false);
-            CheckPropertyCorrectDefined(DirectoryProperty.ObjectClass, "objectClass", DirectoryPropertySyntax.ObjectIdentifierString, true);
-            CheckPropertyCorrectDefined(DirectoryProperty.DistinguishedName, "distinguishedName", DirectoryPropertySyntax.DNString, false);
-            CheckPropertyCorrectDefined(DirectoryProperty.ObjectGuid, "objectGUID", DirectoryPropertySyntax.OctetString, false);
-            CheckPropertyCorrectDefined(DirectoryProperty.Department, "department", DirectoryPropertySyntax.UnicodeString, false);
-            CheckPropertyCorrectDefined(DirectoryProperty.Description, "description", DirectoryPropertySyntax.UnicodeString, false);
-            CheckPropertyCorrectDefined(DirectoryProperty.Division, "division", DirectoryPropertySyntax.UnicodeString, false);
-            CheckPropertyCorrectDefined(DirectoryProperty.Mail, "mail", DirectoryPropertySyntax.UnicodeString, false);
-            CheckPropertyCorrectDefined(DirectoryProperty.EmployeeId, "employeeId", DirectoryPropertySyntax.UnicodeString, false);
-            CheckPropertyCorrectDefined(DirectoryProperty.FacsimileTelephoneNumber, "facsimileTelephoneNumber", DirectoryPropertySyntax.UnicodeString, false);
-            CheckPropertyCorrectDefined(DirectoryProperty.GivenName, "givenName", DirectoryPropertySyntax.UnicodeString, false);
-            CheckPropertyCorrectDefined(DirectoryProperty.HomeDirectory, "homeDirectory", DirectoryPropertySyntax.UnicodeString, false);
-            CheckPropertyCorrectDefined(DirectoryProperty.WwwHomePage, "wWWHomePage", DirectoryPropertySyntax.UnicodeString, false);
+            CheckPropertyCorrectDefined(Member, "member", DNString, true, typeof(DN), typeof(string));
+            CheckPropertyCorrectDefined(MemberOf, "memberOf", DNString, true, typeof(DN), typeof(string));
+            CheckPropertyCorrectDefined(GroupType, "groupType", DirectoryPropertySyntax.Enumeration, false, typeof(string), typeof(int));
+            CheckPropertyCorrectDefined(DisplayName, "displayName", UnicodeString, false, typeof(string), typeof(string));
+            CheckPropertyCorrectDefined(SamAccountName, "samAccountName", UnicodeString, false, typeof(string), typeof(string));
+            CheckPropertyCorrectDefined(ObjectClass, "objectClass", ObjectIdentifierString, true, typeof(string), typeof(string));
+            CheckPropertyCorrectDefined(DistinguishedName, "distinguishedName", DNString, false, typeof(DN), typeof(string));
+            CheckPropertyCorrectDefined(ObjectGuid, "objectGUID", OctetString, false, typeof(Guid), typeof(byte[]));
+            CheckPropertyCorrectDefined(Department, "department", UnicodeString, false, typeof(string), typeof(string));
+            CheckPropertyCorrectDefined(Description, "description", UnicodeString, false, typeof(string), typeof(string));
+            CheckPropertyCorrectDefined(Division, "division", UnicodeString, false, typeof(string), typeof(string));
+            CheckPropertyCorrectDefined(Mail, "mail", UnicodeString, false, typeof(string), typeof(string));
+            CheckPropertyCorrectDefined(EmployeeId, "employeeId", UnicodeString, false, typeof(string), typeof(string));
+            CheckPropertyCorrectDefined(FacsimileTelephoneNumber, "facsimileTelephoneNumber", UnicodeString, false, typeof(string), typeof(string));
+            CheckPropertyCorrectDefined(GivenName, "givenName", UnicodeString, false, typeof(string), typeof(string));
+            CheckPropertyCorrectDefined(HomeDirectory, "homeDirectory", UnicodeString, false, typeof(string), typeof(string));
+            CheckPropertyCorrectDefined(WwwHomePage, "wWWHomePage", UnicodeString, false, typeof(string), typeof(string));
         }
 
         [Fact]
@@ -63,7 +66,7 @@ namespace Bstm.DirectoryServices.UnitTests
 
             var properties = Common.Enumeration
                 .GetAll<DirectoryProperty>()
-                .Where(p => p.Syntax == DirectoryPropertySyntax.OctetString && p.NotionalType == typeof(Guid?));
+                .Where(p => p.Syntax == OctetString && p.NotionalType == typeof(Guid?));
 
             // Exercise system
             var results = properties.Select(p => p.CreateSearchFilterString(guid));
@@ -80,7 +83,7 @@ namespace Bstm.DirectoryServices.UnitTests
 
             var properties = Common.Enumeration
                 .GetAll<DirectoryProperty>()
-                .Where(p => p.Syntax == DirectoryPropertySyntax.OctetString && p.NotionalType == typeof(Guid));
+                .Where(p => p.Syntax == OctetString && p.NotionalType == typeof(Guid));
 
             // Exercise system
             var guids = properties
@@ -102,7 +105,7 @@ namespace Bstm.DirectoryServices.UnitTests
 
             var properties = Common.Enumeration
                 .GetAll<DirectoryProperty>()
-                .Where(p => p.Syntax == DirectoryPropertySyntax.DNString && p.NotionalType == typeof(DN));
+                .Where(p => p.Syntax == DNString && p.NotionalType == typeof(DN));
 
             // Exercise system
             var dns = properties
@@ -122,7 +125,7 @@ namespace Bstm.DirectoryServices.UnitTests
             // Fixture setup
 
             // Exercise system and verify outcome
-            DirectoryProperty.DistinguishedName.ConvertFromDirectoryValue(null).Should().BeNull();
+            DistinguishedName.ConvertFromDirectoryValue(null).Should().BeNull();
         }
 
         [Fact]
@@ -133,7 +136,7 @@ namespace Bstm.DirectoryServices.UnitTests
 
             var properties = Common.Enumeration
                 .GetAll<DirectoryProperty>()
-                .Where(p => p.Syntax == DirectoryPropertySyntax.OctetString && p.NotionalType == typeof(Guid));
+                .Where(p => p.Syntax == OctetString && p.NotionalType == typeof(Guid));
 
             // Exercise system
             var guids = properties
@@ -153,7 +156,7 @@ namespace Bstm.DirectoryServices.UnitTests
 
             var properties = Common.Enumeration
                 .GetAll<DirectoryProperty>()
-                .Where(p => p.Syntax == DirectoryPropertySyntax.DNString && p.NotionalType == typeof(DN));
+                .Where(p => p.Syntax == DNString && p.NotionalType == typeof(DN));
 
             // Exercise system
             var dns = properties
@@ -171,7 +174,7 @@ namespace Bstm.DirectoryServices.UnitTests
             // Fixture setup
 
             // Exercise system
-            Action call = () => DirectoryProperty.DistinguishedName.ConvertFromDirectoryValue("non DN string");
+            Action call = () => DistinguishedName.ConvertFromDirectoryValue("non DN string");
 
             // Verify outcome
             call.Should().Throw<DirectoryServicesException>()
@@ -182,11 +185,15 @@ namespace Bstm.DirectoryServices.UnitTests
             DirectoryProperty property,
             string name,
             DirectoryPropertySyntax syntax,
-            bool multivalued)
+            bool multivalued,
+            Type notionalType,
+            Type directoryType)
         {
             property.Name.Should().Be(name);
             property.Syntax.Should().Be(syntax);
             property.Multivalued.Should().Be(multivalued);
+            property.NotionalType.Should().Be(notionalType);
+            property.DirectoryType.Should().Be(directoryType);
         }
     }
 }

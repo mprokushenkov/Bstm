@@ -1,7 +1,6 @@
 ﻿using System.DirectoryServices;
 using AutoFixture;
 using AutoFixture.Idioms;
-using Bstm.DirectoryServices;
 using Bstm.UnitTesting;
 using Xunit;
 using Xunit.Abstractions;
