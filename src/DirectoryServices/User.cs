@@ -7,7 +7,7 @@ namespace Bstm.DirectoryServices
     {
         public User([NotNull] DirectoryEntry directoryEntry) : base(directoryEntry)
         {
-
+            MemberOf = new MemberOfCollection(this);    
         }
 
         public string Department
@@ -69,5 +69,7 @@ namespace Bstm.DirectoryServices
             get => GetPropertyValue<string>(DirectoryProperty.WwwHomePage);
             set => SetPropertyValue(DirectoryProperty.WwwHomePage, value);
         }
+
+        public IMemberOfCollection MemberOf { get; }
     }
 }

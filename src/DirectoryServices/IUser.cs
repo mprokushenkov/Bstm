@@ -33,5 +33,7 @@ namespace Bstm.DirectoryServices
 
         [CanBeNull]
         string HomePage { get; set; }
+
+        IMemberOfCollection MemberOf { get; }
     }
 }

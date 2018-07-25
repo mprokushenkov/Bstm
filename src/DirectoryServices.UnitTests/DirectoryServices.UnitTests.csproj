@@ -125,6 +125,7 @@
     <Compile Include="GroupTests.cs" />
     <Compile Include="GuidNameTests.cs" />
     <Compile Include="LdapNameTests.cs" />
+    <Compile Include="MemberOfCollectionTests.cs" />
     <Compile Include="NamingAttributeTests.cs" />
     <Compile Include="OrganizationalUnitTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

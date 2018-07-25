@@ -66,6 +66,7 @@
       <Link>Properties\SolutionInfo.cs</Link>
     </Compile>
     <Compile Include="DirectoryObject.cs" />
+    <Compile Include="DirectoryObjectCollection.cs" />
     <Compile Include="DirectoryProperty.cs" />
     <Compile Include="DirectoryPropertySyntax.cs" />
     <Compile Include="DirectoryProvider.cs" />
@@ -85,9 +86,11 @@
     <Compile Include="IDirectoryObject.cs" />
     <Compile Include="IGroup.cs" />
     <Compile Include="IGroupMemberCollection.cs" />
+    <Compile Include="IMemberOfCollection.cs" />
     <Compile Include="IOrganizationalUnit.cs" />
     <Compile Include="IUser.cs" />
     <Compile Include="LdapName.cs" />
+    <Compile Include="MemberOfCollection.cs" />
     <Compile Include="NamingAttribute.cs" />
     <Compile Include="OrganizationalUnit.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
