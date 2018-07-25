@@ -1,9 +1,8 @@
-﻿using System.Collections.Generic;
-using JetBrains.Annotations;
+﻿using JetBrains.Annotations;
 
 namespace Bstm.DirectoryServices
 {
-    public interface IGroupMembersCollection : IEnumerable<IDirectoryObject>
+    public interface IGroupMemberCollection
     {
         void Add([NotNull] IDirectoryObject directoryObject);
         void Remove([NotNull] IDirectoryObject directoryObject);

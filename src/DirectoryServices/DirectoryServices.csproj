@@ -79,12 +79,12 @@
       <DependentUpon>ErrorMessages.resx</DependentUpon>
     </Compile>
     <Compile Include="Group.cs" />
-    <Compile Include="GroupMembersCollection.cs" />
+    <Compile Include="GroupMemberCollection.cs" />
     <Compile Include="GuidName.cs" />
     <Compile Include="IAdsObjectName.cs" />
     <Compile Include="IDirectoryObject.cs" />
     <Compile Include="IGroup.cs" />
-    <Compile Include="IGroupMembersCollection.cs" />
+    <Compile Include="IGroupMemberCollection.cs" />
     <Compile Include="IOrganizationalUnit.cs" />
     <Compile Include="IUser.cs" />
     <Compile Include="LdapName.cs" />

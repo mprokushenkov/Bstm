@@ -9,7 +9,7 @@ namespace Bstm.DirectoryServices
     {
         public Group([NotNull] DirectoryEntry directoryEntry) : base(directoryEntry)
         {
-            Members = new GroupMembersCollection(this);
+            Members = new GroupMemberCollection(this);
         }
 
         public GroupScope Scope
@@ -58,6 +58,6 @@ namespace Bstm.DirectoryServices
             }
         }
 
-        public IGroupMembersCollection Members { get; }
+        public IGroupMemberCollection Members { get; }
     }
 }

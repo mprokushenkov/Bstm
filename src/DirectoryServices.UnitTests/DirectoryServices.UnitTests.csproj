@@ -121,7 +121,7 @@
     <Compile Include="DirectoryPropertySyntaxTests.cs" />
     <Compile Include="DirectoryPropertyTests.cs" />
     <Compile Include="DNTests.cs" />
-    <Compile Include="GroupMembersCollectionTests.cs" />
+    <Compile Include="GroupMemberCollectionTests.cs" />
     <Compile Include="GroupTests.cs" />
     <Compile Include="GuidNameTests.cs" />
     <Compile Include="LdapNameTests.cs" />

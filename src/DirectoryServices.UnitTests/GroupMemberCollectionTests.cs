@@ -5,9 +5,9 @@ using Xunit.Abstractions;
 
 namespace Bstm.DirectoryServices.UnitTests
 {
-    public class GroupMembersCollectionTests : TestBase
+    public class GroupMemberCollectionTests : TestBase
     {
-        public GroupMembersCollectionTests(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
+        public GroupMemberCollectionTests(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
         {
         }
 
@@ -18,10 +18,10 @@ namespace Bstm.DirectoryServices.UnitTests
             // Fixture setup
 
             // Exercise system and verify outcome
-            assertion.Verify(typeof(GroupMembersCollection).GetConstructors());
+            assertion.Verify(typeof(GroupMemberCollection).GetConstructors());
 
             assertion.Verify(
-                typeof(GroupMembersCollection).GetMethods());
+                typeof(GroupMemberCollection).GetMethods());
         }
     }
 }

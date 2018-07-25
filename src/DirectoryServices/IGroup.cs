@@ -6,6 +6,6 @@ namespace Bstm.DirectoryServices
     {
         GroupScope Scope { get; set; }
 
-        IGroupMembersCollection Members { get; }
+        IGroupMemberCollection Members { get; }
     }
 }
