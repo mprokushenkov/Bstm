@@ -13,10 +13,11 @@ before_build:
 build:
   project: src\Bstm.sln
   verbosity: minimal
+
 test:
   assemblies:
     only:
     - src\**\bin\**\*UnitTests.dll
     
-after_build:
+after_test:
   - SonarScanner.MSBuild.exe end /d:sonar.login="e5f91eb00224462317bc02e8e3a61cad51c31ae5"
