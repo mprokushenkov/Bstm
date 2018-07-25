@@ -11,6 +11,12 @@ namespace Bstm.DirectoryServices
     {
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
+        public virtual T GetDirectoryObject<T>(AdsPath adsPath)
+            where T : class, IDirectoryObject
+        {
+            return GetDirectoryObject(adsPath) as T;
+        }
+
         public virtual IDirectoryObject GetDirectoryObject(AdsPath adsPath)
         {
             var directoryObject = new DirectoryEntry(adsPath).ToDirectoryObject();
@@ -18,9 +24,17 @@ namespace Bstm.DirectoryServices
             return directoryObject;
         }
 
-        [CanBeNull]
+        public virtual T FindOne<T>(
+            [NotNull] AdsPath searchRoot,
+            [NotNull] DirectoryProperty directoryProperty,
+            object propertyValue)
+            where T : class, IDirectoryObject
+        {
+            return FindOne(searchRoot, directoryProperty, propertyValue) as T;
+        }
+
         public virtual IDirectoryObject FindOne(
-            [NotNull] AdsPath searchRootAdsPath,
+            [NotNull] AdsPath searchRoot,
             [NotNull] DirectoryProperty directoryProperty,
             object propertyValue)
         {
@@ -30,20 +44,23 @@ namespace Bstm.DirectoryServices
                 directoryProperty,
                 directoryProperty.CreateSearchFilterString(propertyValue));
 
-            return FindOne(searchRootAdsPath, searchFilter);
+            return FindOne(searchRoot, searchFilter);
         }
 
-        [CanBeNull]
-        public virtual IDirectoryObject FindOne(
-            [NotNull] AdsPath searchRootAdsPath,
-            [NotNull] SearchFilter searchFilter)
+        public virtual T FindOne<T>([NotNull] AdsPath searchRoot, [NotNull] SearchFilter searchFilter)
+            where T : class, IDirectoryObject
         {
-            Guard.CheckNull(searchRootAdsPath, nameof(searchRootAdsPath));
+            return FindOne(searchRoot, searchFilter) as T;
+        }
+
+        public virtual IDirectoryObject FindOne([NotNull] AdsPath searchRoot, [NotNull] SearchFilter searchFilter)
+        {
+            Guard.CheckNull(searchRoot, nameof(searchRoot));
             Guard.CheckNull(searchFilter, nameof(searchFilter));
 
-            using (var root = new DirectoryEntry(searchRootAdsPath))
+            using (var root = new DirectoryEntry(searchRoot))
             {
-                logger.Debug("Search one object in {SearchRoot} by filter {SearchFilter}.", searchRootAdsPath, searchFilter);
+                logger.Debug("Search one object in {SearchRoot} by filter {SearchFilter}.", searchRoot, searchFilter);
 
                 var searcher = CreateDirectorySearcher(searchFilter, root);
                 var searchResult = searcher.FindOne();

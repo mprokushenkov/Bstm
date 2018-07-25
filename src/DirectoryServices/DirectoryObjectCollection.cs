@@ -41,7 +41,7 @@ namespace Bstm.DirectoryServices
                     directoryEntry = null;
                     directoryObject = null;
 
-                    yield return (T) (object) result;
+                    yield return (T) (IDirectoryObject) result;
                 }
                 finally
                 {
