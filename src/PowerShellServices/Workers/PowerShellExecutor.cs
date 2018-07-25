@@ -30,19 +30,10 @@ namespace Bstm.PowerShellServices.Workers
         {
             Guard.CheckNull(command, nameof(command));
 
-            var activityId = Trace.CorrelationManager.ActivityId;
-
             using (var runspace = CreateRunspace())
             {
-                if (runspace.RunspaceStateInfo.State != RunspaceState.Opened)
-                {
-                    runspace.Open();
-                }
-
-                // Propogate activityId because runspace.Open() creates new one.
-                Trace.CorrelationManager.ActivityId = activityId;
-
                 logger.Debug("Create powershell.");
+
                 using (var shell = PowerShell.Create())
                 {
                     shell.Runspace = runspace;
@@ -56,7 +47,54 @@ namespace Bstm.PowerShellServices.Workers
             }
         }
 
-        private ICollection<PSObject> InvokeCommands(PowerShell shell, params Command[] commands)
+        private Runspace CreateRunspace()
+        {
+            Runspace runspace;
+
+            if (!string.IsNullOrEmpty(RemoteAddress))
+            {
+                var connectionInfo = GetConnectionInfo();
+
+                logger.Debug("Create remote runspace");
+
+                runspace = RunspaceFactory.CreateRunspace(connectionInfo);
+            }
+            else
+            {
+                logger.Debug("Create local runspace");
+                runspace = RunspaceFactory.CreateRunspace(CreateSession());
+            }
+
+            var activityId = Trace.CorrelationManager.ActivityId;
+
+            runspace.Open();
+
+            // Propogate activityId because runspace.Open() creates new one.
+            Trace.CorrelationManager.ActivityId = activityId;
+
+            // set error action preference
+            logger.Debug("Set variable 'ErrorActionPreference' as 'Continue'.");
+
+            runspace.SessionStateProxy.SetVariable("ErrorActionPreference", "Continue");
+
+            return runspace;
+        }
+
+        private InitialSessionState CreateSession()
+        {
+            logger.Debug("Initialize default session state.");
+            var session = InitialSessionState.CreateDefault();
+
+            logger.Debug("Import modules {@Modules}.", Modules);
+            session.ImportPSModule(Modules.ToArray());
+
+            logger.Debug("Import snapins {@SnapIns}.", SnapIns);
+            SnapIns.ForEach(s => session.ImportPSSnapIn(s, out var _));
+
+            return session;
+        }
+
+        private static ICollection<PSObject> InvokeCommands(PowerShell shell, params Command[] commands)
         {
             var results = new List<PSObject>();
 
@@ -81,43 +119,6 @@ namespace Bstm.PowerShellServices.Workers
             return results;
         }
 
-        private InitialSessionState CreateSession()
-        {
-            logger.Debug("Initialize default session state.");
-            var session = InitialSessionState.CreateDefault();
-
-            logger.Debug("Import modules {@Modules}.", Modules);
-            session.ImportPSModule(Modules.ToArray());
-
-            logger.Debug("Import snapins {@SnapIns}.", SnapIns);
-            SnapIns.ForEach(s => session.ImportPSSnapIn(s, out var _));
-
-            return session;
-        }
-
-        private Runspace CreateRunspace()
-        {
-            if (!string.IsNullOrEmpty(RemoteAddress))
-            {
-                var connectionInfo = GetConnectionInfo();
-
-                logger.Debug("Create remote runspace");
-
-                return RunspaceFactory.CreateRunspace(connectionInfo);
-            }
-
-            logger.Debug("Create local runspace");
-            var runspace = RunspaceFactory.CreateRunspace(CreateSession());
-            runspace.Open();
-
-            logger.Debug("Set variable 'ErrorActionPreference' as 'Continue'.");
-
-            // set error action preference for local session
-            runspace.SessionStateProxy.SetVariable("ErrorActionPreference", "Continue");
-
-            return runspace;
-        }
-
         private WSManConnectionInfo GetConnectionInfo()
         {
             logger.Debug("Create connection info. Uri {ConnectionUri}, Shell {ShellName}.", RemoteAddress, ShellName);
@@ -129,7 +130,7 @@ namespace Bstm.PowerShellServices.Workers
             return connectionInfo;
         }
 
-        private void CheckErrors(ICollection<ErrorRecord> errors)
+        private static void CheckErrors(ICollection<ErrorRecord> errors)
         {
             if (errors.Count == 0)
             {
