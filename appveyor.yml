@@ -1,0 +1,22 @@
+version: 1.0.0.{build}
+
+image: Visual Studio 2017
+
+pull_requests:
+  do_not_increment_build_number: true
+
+before_build:
+  - nuget restore "src/Bstm.sln"
+  - choco install "msbuild-sonarqube-runner" -y
+  - SonarQube.Scanner.MSBuild.exe begin /k:"Bstm" /o:"mprokushenkov-github" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login="15bbbe8405a13a08c0846f71ec1eeec9e534e015"
+  
+build:
+  project: src\Bstm.sln
+  verbosity: minimal
+test:
+  assemblies:
+    only:
+    - src\**\bin\**\*UnitTests.dll
+    
+after_build:
+  - SonarQube.Scanner.MSBuild.exe end /d:sonar.login="15bbbe8405a13a08c0846f71ec1eeec9e534e015"
