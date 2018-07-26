@@ -1,5 +1,7 @@
 ﻿using System.DirectoryServices;
+using ActiveDs;
 using JetBrains.Annotations;
+using static Bstm.DirectoryServices.DirectoryProperty;
 
 namespace Bstm.DirectoryServices
 {
@@ -7,7 +9,24 @@ namespace Bstm.DirectoryServices
     {
         public User([NotNull] DirectoryEntry directoryEntry) : base(directoryEntry)
         {
-            MemberOf = new MemberOfCollection(this);    
+            MemberOf = new MemberOfCollection(this);
+        }
+
+        public bool AccountDisabled
+        {
+            get => HasAccountControl(ADS_USER_FLAG.ADS_UF_ACCOUNTDISABLE);
+
+            set
+            {
+                if (value)
+                {
+                    SetAccountControl(ADS_USER_FLAG.ADS_UF_ACCOUNTDISABLE);
+                }
+                else
+                {
+                    ClearAccountControl(ADS_USER_FLAG.ADS_UF_ACCOUNTDISABLE);
+                }
+            }
         }
 
         public string Department
@@ -30,8 +49,8 @@ namespace Bstm.DirectoryServices
 
         public string EmailAddress
         {
-            get => GetPropertyValue<string>(DirectoryProperty.Mail);
-            set => SetPropertyValue(DirectoryProperty.Mail, value);
+            get => GetPropertyValue<string>(Mail);
+            set => SetPropertyValue(Mail, value);
         }
 
         public string EmployeeId
@@ -42,14 +61,14 @@ namespace Bstm.DirectoryServices
 
         public string FaxNumber
         {
-            get => GetPropertyValue<string>(DirectoryProperty.FacsimileTelephoneNumber);
-            set => SetPropertyValue(DirectoryProperty.FacsimileTelephoneNumber, value);
+            get => GetPropertyValue<string>(FacsimileTelephoneNumber);
+            set => SetPropertyValue(FacsimileTelephoneNumber, value);
         }
 
         public string FirstName
         {
-            get => GetPropertyValue<string>(DirectoryProperty.GivenName);
-            set => SetPropertyValue(DirectoryProperty.GivenName, value);
+            get => GetPropertyValue<string>(GivenName);
+            set => SetPropertyValue(GivenName, value);
         }
 
         public string FullName
@@ -66,10 +85,29 @@ namespace Bstm.DirectoryServices
 
         public string HomePage
         {
-            get => GetPropertyValue<string>(DirectoryProperty.WwwHomePage);
-            set => SetPropertyValue(DirectoryProperty.WwwHomePage, value);
+            get => GetPropertyValue<string>(WwwHomePage);
+            set => SetPropertyValue(WwwHomePage, value);
         }
 
         public IMemberOfCollection MemberOf { get; }
+
+        internal bool HasAccountControl(ADS_USER_FLAG flag)
+        {
+            return ((ADS_USER_FLAG) GetPropertyValue<int>(UserAccountControl)).HasFlag(flag);
+        }
+
+        internal void SetAccountControl(ADS_USER_FLAG flag)
+        {
+            // ReSharper disable once BitwiseOperatorOnEnumWithoutFlags
+            var newValue = GetPropertyValue<ADS_USER_FLAG>(UserAccountControl) | flag;
+            SetPropertyValue(UserAccountControl, (int) newValue);
+        }
+
+        private void ClearAccountControl(ADS_USER_FLAG flag)
+        {
+            // ReSharper disable once BitwiseOperatorOnEnumWithoutFlags
+            var newValue = GetPropertyValue<ADS_USER_FLAG>(UserAccountControl) & ~flag;
+            SetPropertyValue(UserAccountControl, (int) newValue);
+        }
     }
 }

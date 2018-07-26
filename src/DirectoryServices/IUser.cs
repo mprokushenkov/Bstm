@@ -4,6 +4,8 @@ namespace Bstm.DirectoryServices
 {
     public interface IUser : IDirectoryObject
     {
+        bool AccountDisabled { get; set; }
+
         [CanBeNull]
         string Department { get; set; }
 

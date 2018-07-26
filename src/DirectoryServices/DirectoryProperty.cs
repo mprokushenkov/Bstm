@@ -71,6 +71,9 @@ namespace Bstm.DirectoryServices
         public static DirectoryProperty WwwHomePage { get; } =
             new DirectoryProperty("wWWHomePage", DirectoryPropertySyntax.UnicodeString, false, typeof(string), typeof(string));
 
+        public static DirectoryProperty UserAccountControl { get; } =
+            new DirectoryProperty("userAccountControl", DirectoryPropertySyntax.Enumeration, false, typeof(int), typeof(int));
+
         public DirectoryPropertySyntax Syntax { get; }
 
         public bool Multivalued { get; }

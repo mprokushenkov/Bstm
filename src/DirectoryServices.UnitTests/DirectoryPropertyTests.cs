@@ -56,6 +56,7 @@ namespace Bstm.DirectoryServices.UnitTests
             CheckPropertyCorrectDefined(GivenName, "givenName", UnicodeString, false, typeof(string), typeof(string));
             CheckPropertyCorrectDefined(HomeDirectory, "homeDirectory", UnicodeString, false, typeof(string), typeof(string));
             CheckPropertyCorrectDefined(WwwHomePage, "wWWHomePage", UnicodeString, false, typeof(string), typeof(string));
+            CheckPropertyCorrectDefined(UserAccountControl, "userAccountControl", DirectoryPropertySyntax.Enumeration, false, typeof(int), typeof(int));
         }
 
         [Fact]

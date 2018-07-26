@@ -1,10 +1,12 @@
 ﻿using System.DirectoryServices;
+using ActiveDs;
 using AutoFixture;
 using AutoFixture.Idioms;
 using Bstm.UnitTesting;
 using FluentAssertions;
 using Xunit;
 using Xunit.Abstractions;
+using static Bstm.DirectoryServices.DirectoryProperty;
 
 namespace Bstm.DirectoryServices.UnitTests
 {
@@ -37,7 +39,7 @@ namespace Bstm.DirectoryServices.UnitTests
 
             // Verify outcome
             user.Department.Should().Be(department);
-            user.GetPropertyValue<string>(DirectoryProperty.Department).Should().Be(department);
+            user.GetPropertyValue<string>(Department).Should().Be(department);
         }
 
         [Fact]
@@ -52,7 +54,7 @@ namespace Bstm.DirectoryServices.UnitTests
 
             // Verify outcome
             user.Description.Should().Be(description);
-            user.GetPropertyValue<string>(DirectoryProperty.Description).Should().Be(description);
+            user.GetPropertyValue<string>(Description).Should().Be(description);
         }
 
         [Fact]
@@ -67,7 +69,7 @@ namespace Bstm.DirectoryServices.UnitTests
 
             // Verify outcome
             user.Division.Should().Be(division);
-            user.GetPropertyValue<string>(DirectoryProperty.Division).Should().Be(division);
+            user.GetPropertyValue<string>(Division).Should().Be(division);
         }
 
         [Fact]
@@ -82,7 +84,7 @@ namespace Bstm.DirectoryServices.UnitTests
 
             // Verify outcome
             user.EmailAddress.Should().Be(emailAddress);
-            user.GetPropertyValue<string>(DirectoryProperty.Mail).Should().Be(emailAddress);
+            user.GetPropertyValue<string>(Mail).Should().Be(emailAddress);
         }
 
         [Fact]
@@ -97,7 +99,7 @@ namespace Bstm.DirectoryServices.UnitTests
 
             // Verify outcome
             user.EmployeeId.Should().Be(employeeId);
-            user.GetPropertyValue<string>(DirectoryProperty.EmployeeId).Should().Be(employeeId);
+            user.GetPropertyValue<string>(EmployeeId).Should().Be(employeeId);
         }
 
         [Fact]
@@ -112,7 +114,7 @@ namespace Bstm.DirectoryServices.UnitTests
 
             // Verify outcome
             user.FaxNumber.Should().Be(faxNumber);
-            user.GetPropertyValue<string>(DirectoryProperty.FacsimileTelephoneNumber).Should().Be(faxNumber);
+            user.GetPropertyValue<string>(FacsimileTelephoneNumber).Should().Be(faxNumber);
         }
 
         [Fact]
@@ -127,7 +129,7 @@ namespace Bstm.DirectoryServices.UnitTests
 
             // Verify outcome
             user.FirstName.Should().Be(firstName);
-            user.GetPropertyValue<string>(DirectoryProperty.GivenName).Should().Be(firstName);
+            user.GetPropertyValue<string>(GivenName).Should().Be(firstName);
         }
 
         [Fact]
@@ -142,7 +144,7 @@ namespace Bstm.DirectoryServices.UnitTests
 
             // Verify outcome
             user.HomeDirectory.Should().Be(homeDirectory);
-            user.GetPropertyValue<string>(DirectoryProperty.HomeDirectory).Should().Be(homeDirectory);
+            user.GetPropertyValue<string>(HomeDirectory).Should().Be(homeDirectory);
         }
 
         [Fact]
@@ -157,7 +159,7 @@ namespace Bstm.DirectoryServices.UnitTests
 
             // Verify outcome
             user.HomePage.Should().Be(homePage);
-            user.GetPropertyValue<string>(DirectoryProperty.WwwHomePage).Should().Be(homePage);
+            user.GetPropertyValue<string>(WwwHomePage).Should().Be(homePage);
         }
 
         [Fact]
@@ -172,7 +174,54 @@ namespace Bstm.DirectoryServices.UnitTests
 
             // Verify outcome
             user.FullName.Should().Be(fullName);
-            user.GetPropertyValue<string>(DirectoryProperty.DisplayName).Should().Be(fullName);
+            user.GetPropertyValue<string>(DisplayName).Should().Be(fullName);
+        }
+
+        [Fact]
+        public void AccountDisabledShoulBeCorrectRead()
+        {
+            // Fixture setup
+            var user = Fixture
+                .Build<User>()
+                .With(u => u.AccountDisabled, false)
+                .Create();
+
+            user.SetAccountControl(ADS_USER_FLAG.ADS_UF_ACCOUNTDISABLE);
+
+            // Exercise system and verify outcome
+            user.AccountDisabled.Should().BeTrue();
+        }
+
+        [Fact]
+        public void AccountDisabledShoulBeCorrectWritten()
+        {
+            // Fixture setup
+            var user = Fixture
+                .Build<User>()
+                .With(u => u.AccountDisabled, false)
+                .Create();
+
+            // Exercise system
+            user.AccountDisabled = true;
+
+            // Verify outcome
+            user.HasAccountControl(ADS_USER_FLAG.ADS_UF_ACCOUNTDISABLE).Should().BeTrue();
+        }
+
+        [Fact]
+        public void AccountDisabledShoulBeCorrectCleared()
+        {
+            // Fixture setup
+            var user = Fixture
+                .Build<User>()
+                .With(u => u.AccountDisabled, true)
+                .Create();
+
+            // Exercise system
+            user.AccountDisabled = false;
+
+            // Verify outcome
+            user.HasAccountControl(ADS_USER_FLAG.ADS_UF_ACCOUNTDISABLE).Should().BeFalse();
         }
     }
 }
