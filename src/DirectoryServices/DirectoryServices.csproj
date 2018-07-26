@@ -67,7 +67,8 @@
     </Compile>
     <Compile Include="DirectoryObject.cs" />
     <Compile Include="DirectoryObjectCollection.cs" />
-    <Compile Include="DirectoryProperty.cs" />
+    <Compile Include="DirectoryProperty.Conversion.cs" />
+    <Compile Include="DirectoryProperty.Description.cs" />
     <Compile Include="DirectoryPropertySyntax.cs" />
     <Compile Include="DirectoryProvider.cs" />
     <Compile Include="AdsPath.cs" />

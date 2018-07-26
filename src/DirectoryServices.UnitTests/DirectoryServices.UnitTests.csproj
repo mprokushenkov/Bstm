@@ -118,8 +118,9 @@
     <Compile Include="AdsPathTests.cs" />
     <Compile Include="AdsProviderTests.cs" />
     <Compile Include="DirectoryObjectTests.cs" />
+    <Compile Include="DirectoryPropertyConversionTests.cs" />
     <Compile Include="DirectoryPropertySyntaxTests.cs" />
-    <Compile Include="DirectoryPropertyTests.cs" />
+    <Compile Include="DirectoryPropertyDescriptionTests.cs" />
     <Compile Include="DNTests.cs" />
     <Compile Include="GroupMemberCollectionTests.cs" />
     <Compile Include="GroupTests.cs" />
