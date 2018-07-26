@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using ActiveDs;
 using Bstm.Common;
 using JetBrains.Annotations;
 
@@ -72,7 +73,7 @@ namespace Bstm.DirectoryServices
             new DirectoryProperty("wWWHomePage", DirectoryPropertySyntax.UnicodeString, false, typeof(string), typeof(string));
 
         public static DirectoryProperty UserAccountControl { get; } =
-            new DirectoryProperty("userAccountControl", DirectoryPropertySyntax.Enumeration, false, typeof(int), typeof(int));
+            new DirectoryProperty("userAccountControl", DirectoryPropertySyntax.Enumeration, false, typeof(ADS_USER_FLAG), typeof(int));
 
         public DirectoryPropertySyntax Syntax { get; }
 
@@ -90,7 +91,7 @@ namespace Bstm.DirectoryServices
             switch (value)
             {
                 case Guid g:
-                    return string.Concat(((Guid) value).ToByteArray().Select(b => $"\\{b:x2}"));
+                    return string.Concat(g.ToByteArray().Select(b => $"\\{b:x2}"));
                 default:
                     return value.ToString();
             }
@@ -107,6 +108,8 @@ namespace Bstm.DirectoryServices
                     return g.ToByteArray();
                 case DN dn:
                     return dn.ToString();
+                case ADS_USER_FLAG flag:
+                    return (int) flag;
                 default:
                     return value;
             }
@@ -128,6 +131,8 @@ namespace Bstm.DirectoryServices
                         return new Guid(ar);
                     case string s when NotionalType == typeof(DN):
                         return DN.Parse(s);
+                    case int i when NotionalType == typeof(ADS_USER_FLAG):
+                        return (ADS_USER_FLAG) i;
                     default:
                         return value;
                 }

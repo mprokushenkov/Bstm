@@ -93,21 +93,21 @@ namespace Bstm.DirectoryServices
 
         internal bool HasAccountControl(ADS_USER_FLAG flag)
         {
-            return ((ADS_USER_FLAG) GetPropertyValue<int>(UserAccountControl)).HasFlag(flag);
+            return GetPropertyValue<ADS_USER_FLAG>(UserAccountControl).HasFlag(flag);
         }
 
         internal void SetAccountControl(ADS_USER_FLAG flag)
         {
             // ReSharper disable once BitwiseOperatorOnEnumWithoutFlags
             var newValue = GetPropertyValue<ADS_USER_FLAG>(UserAccountControl) | flag;
-            SetPropertyValue(UserAccountControl, (int) newValue);
+            SetPropertyValue(UserAccountControl, newValue);
         }
 
         private void ClearAccountControl(ADS_USER_FLAG flag)
         {
             // ReSharper disable once BitwiseOperatorOnEnumWithoutFlags
             var newValue = GetPropertyValue<ADS_USER_FLAG>(UserAccountControl) & ~flag;
-            SetPropertyValue(UserAccountControl, (int) newValue);
+            SetPropertyValue(UserAccountControl, newValue);
         }
     }
 }

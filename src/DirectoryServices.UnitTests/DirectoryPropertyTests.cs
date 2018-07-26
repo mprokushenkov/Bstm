@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using ActiveDs;
 using AutoFixture.Idioms;
 using Bstm.Common;
 using Bstm.UnitTesting;
@@ -56,7 +57,7 @@ namespace Bstm.DirectoryServices.UnitTests
             CheckPropertyCorrectDefined(GivenName, "givenName", UnicodeString, false, typeof(string), typeof(string));
             CheckPropertyCorrectDefined(HomeDirectory, "homeDirectory", UnicodeString, false, typeof(string), typeof(string));
             CheckPropertyCorrectDefined(WwwHomePage, "wWWHomePage", UnicodeString, false, typeof(string), typeof(string));
-            CheckPropertyCorrectDefined(UserAccountControl, "userAccountControl", DirectoryPropertySyntax.Enumeration, false, typeof(int), typeof(int));
+            CheckPropertyCorrectDefined(UserAccountControl, "userAccountControl", DirectoryPropertySyntax.Enumeration, false, typeof(ADS_USER_FLAG), typeof(int));
         }
 
         [Fact]
@@ -99,6 +100,26 @@ namespace Bstm.DirectoryServices.UnitTests
         }
 
         [Fact]
+        public void GuidPropertyShouldCorrectConvertFromDirectoryValue()
+        {
+            // Fixture setup
+            var guid = Guid.NewGuid();
+
+            var properties = Common.Enumeration
+                .GetAll<DirectoryProperty>()
+                .Where(p => p.Syntax == OctetString && p.NotionalType == typeof(Guid));
+
+            // Exercise system
+            var guids = properties
+                .Select(p => p.ConvertFromDirectoryValue(guid.ToByteArray()))
+                .ToList();
+
+            // Verify outcome
+            guids.Should().HaveCountGreaterThan(0);
+            guids.ForEach(r => r.Should().Be(guid));
+        }
+
+        [Fact]
         public void DNPropertyShouldConvertToCorrectDirectoryValue()
         {
             // Fixture setup
@@ -121,35 +142,6 @@ namespace Bstm.DirectoryServices.UnitTests
         }
 
         [Fact]
-        public void ConvertFromDirectoryValueReturnsNullOnNullInput()
-        {
-            // Fixture setup
-
-            // Exercise system and verify outcome
-            DistinguishedName.ConvertFromDirectoryValue(null).Should().BeNull();
-        }
-
-        [Fact]
-        public void GuidPropertyShouldCorrectConvertFromDirectoryValue()
-        {
-            // Fixture setup
-            var guid = Guid.NewGuid();
-
-            var properties = Common.Enumeration
-                .GetAll<DirectoryProperty>()
-                .Where(p => p.Syntax == OctetString && p.NotionalType == typeof(Guid));
-
-            // Exercise system
-            var guids = properties
-                .Select(p => p.ConvertFromDirectoryValue(guid.ToByteArray()))
-                .ToList();
-
-            // Verify outcome
-            guids.Should().HaveCountGreaterThan(0);
-            guids.ForEach(r => r.Should().Be(guid));
-        }
-
-        [Fact]
         public void DNPropertyShouldCorrectConvertFromDirectoryValue()
         {
             // Fixture setup
@@ -167,6 +159,59 @@ namespace Bstm.DirectoryServices.UnitTests
             // Verify outcome
             dns.Should().HaveCountGreaterThan(0);
             dns.ForEach(r => r.Should().Be(dn));
+        }
+
+        [Fact]
+        public void AdsUserFlagPropertyShouldConvertToCorrectDirectoryValue()
+        {
+            // Fixture setup
+            const ADS_USER_FLAG userFlag = ADS_USER_FLAG.ADS_UF_ACCOUNTDISABLE;
+
+            var properties = Common.Enumeration
+                .GetAll<DirectoryProperty>()
+                .Where(p => p.Syntax == DirectoryPropertySyntax.Enumeration
+                            && p.NotionalType.IsEquivalentTo(typeof(ADS_USER_FLAG)));
+
+            // Exercise system
+            var flags = properties
+                .Select(p => p.ConvertToDirectoryValue(userFlag))
+                .OfType<int>()
+                .Select(i => (ADS_USER_FLAG) i)
+                .ToList();
+
+            // Verify outcome
+            flags.Should().HaveCountGreaterThan(0);
+            flags.ForEach(r => r.Should().Be(userFlag));
+        }
+
+        [Fact]
+        public void AdsUserFlagPropertyShouldCorrectConvertFromDirectoryValue()
+        {
+            // Fixture setup
+            const ADS_USER_FLAG userFlag = ADS_USER_FLAG.ADS_UF_ACCOUNTDISABLE;
+
+            var properties = Common.Enumeration
+                .GetAll<DirectoryProperty>()
+                .Where(p => p.Syntax == DirectoryPropertySyntax.Enumeration
+                            && p.NotionalType.IsEquivalentTo(typeof(ADS_USER_FLAG)));
+
+            // Exercise system
+            var flags = properties
+                .Select(p => p.ConvertFromDirectoryValue((int) userFlag))
+                .ToList();
+
+            // Verify outcome
+            flags.Should().HaveCountGreaterThan(0);
+            flags.ForEach(f => ((ADS_USER_FLAG) f).Should().Be(userFlag));
+        }
+
+        [Fact]
+        public void ConvertFromDirectoryValueReturnsNullOnNullInput()
+        {
+            // Fixture setup
+
+            // Exercise system and verify outcome
+            DistinguishedName.ConvertFromDirectoryValue(null).Should().BeNull();
         }
 
         [Fact]
@@ -193,7 +238,7 @@ namespace Bstm.DirectoryServices.UnitTests
             property.Name.Should().Be(name);
             property.Syntax.Should().Be(syntax);
             property.Multivalued.Should().Be(multivalued);
-            property.NotionalType.Should().Be(notionalType);
+            property.NotionalType.IsEquivalentTo(notionalType).Should().BeTrue();
             property.DirectoryType.Should().Be(directoryType);
         }
     }
