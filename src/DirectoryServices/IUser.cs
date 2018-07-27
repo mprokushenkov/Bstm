@@ -8,7 +8,7 @@ namespace Bstm.DirectoryServices
         bool AccountDisabled { get; set; }
 
         [CanBeNull]
-        DateTimeOffset? AccountExpiresAt { get; set; }
+        DateTime? AccountExpiresAt { get; set; }
 
         int BadLoginCount { get; }
 

@@ -230,14 +230,14 @@ namespace Bstm.DirectoryServices.UnitTests
         {
             // Fixture setup
             var user = Fixture.Create<User>();
-            var accountExpires = Fixture.Create<DateTimeOffset?>();
+            var accountExpires = Fixture.Create<DateTime?>();
 
             // Exercise system
             user.AccountExpiresAt = accountExpires;
 
             // Verify outcome
             user.AccountExpiresAt.Should().Be(accountExpires);
-            user.GetPropertyValue<DateTimeOffset?>(AccountExpires).Should().Be(accountExpires);
+            user.GetPropertyValue<DateTime?>(AccountExpires).Should().Be(accountExpires);
         }
 
         [Fact]

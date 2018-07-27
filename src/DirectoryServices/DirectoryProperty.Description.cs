@@ -74,7 +74,7 @@ namespace Bstm.DirectoryServices
             new DirectoryProperty("userAccountControl", DirectoryPropertySyntax.Enumeration, false, typeof(ADS_USER_FLAG), typeof(int));
 
         public static DirectoryProperty AccountExpires { get; } =
-            new DirectoryProperty("accountExpires", DirectoryPropertySyntax.Interval, false, typeof(DateTimeOffset?), typeof(IADsLargeInteger));
+            new DirectoryProperty("accountExpires", DirectoryPropertySyntax.Interval, false, typeof(DateTime?), typeof(IADsLargeInteger));
 
         public static DirectoryProperty BadPwdCount { get; } =
             new DirectoryProperty("badPwdCount", DirectoryPropertySyntax.Enumeration, false, typeof(int), typeof(int));

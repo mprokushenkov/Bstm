@@ -35,8 +35,8 @@ namespace Bstm.DirectoryServices
                     return dn.ToString();
                 case ADS_USER_FLAG flag:
                     return (int) flag;
-                case DateTimeOffset offset:
-                    return DateTimeOffsetToLargeInteger(offset);
+                case DateTime dt:
+                    return DateTimeToLargeInteger(dt);
                 case long l when DirectoryType == typeof(IADsLargeInteger):
                     return Int64ToLargeInteger(l);
                 default:
@@ -61,8 +61,8 @@ namespace Bstm.DirectoryServices
                         return DN.Parse(s);
                     case int i when NotionalType == typeof(ADS_USER_FLAG):
                         return (ADS_USER_FLAG) i;
-                    case IADsLargeInteger i when NotionalType == typeof(DateTimeOffset?):
-                        return DateTimeOffsetFromLargeInteger(i);
+                    case IADsLargeInteger i when NotionalType == typeof(DateTime?):
+                        return DateTimeFromLargeInteger(i);
                     case IADsLargeInteger i when NotionalType == typeof(long):
                         return Int64FromLargeInteger(i);
                     default:
@@ -82,11 +82,11 @@ namespace Bstm.DirectoryServices
             }
         }
 
-        internal static DateTimeOffset? DateTimeOffsetFromLargeInteger(object largeInteger)
+        internal static DateTime? DateTimeFromLargeInteger(object largeInteger)
         {
             try
             {
-                return DateTimeOffset.FromFileTime(Int64FromLargeInteger(largeInteger));
+                return DateTime.FromFileTime(Int64FromLargeInteger(largeInteger));
             }
             catch (ArgumentOutOfRangeException)
             {
@@ -95,15 +95,15 @@ namespace Bstm.DirectoryServices
             }
         }
 
-        internal static IADsLargeInteger DateTimeOffsetToLargeInteger(DateTimeOffset offset)
+        internal static IADsLargeInteger DateTimeToLargeInteger(DateTime dateTime)
         {
             try
             {
-                return Int64ToLargeInteger(offset.ToFileTime());
+                return Int64ToLargeInteger(dateTime.ToFileTime());
             }
             catch (ArgumentOutOfRangeException)
             {
-                // in case of very small offset 
+                // in case of very small file time
                 return new LargeInteger();
             }
         }

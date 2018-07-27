@@ -30,10 +30,10 @@ namespace Bstm.DirectoryServices
             }
         }
 
-        public DateTimeOffset? AccountExpiresAt
+        public DateTime? AccountExpiresAt
         {
-            get => GetPropertyValue<DateTimeOffset?>(AccountExpires);
-            set => SetPropertyValue(DirectoryProperty.AccountExpires, value);
+            get => GetPropertyValue<DateTime?>(AccountExpires);
+            set => SetPropertyValue(AccountExpires, value);
         }
 
         public int BadLoginCount => GetPropertyValue<int>(BadPwdCount);

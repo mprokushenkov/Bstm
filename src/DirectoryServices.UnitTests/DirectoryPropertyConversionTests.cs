@@ -177,52 +177,39 @@ namespace Bstm.DirectoryServices.UnitTests
         }
 
         [Fact]
-        public void DateTimeOffsetFromLargeIntegerShouldReturnNullForVeryBigValue()
-        {
-            // Fixture setup
-            var largeInteger = Int64ToLargeInteger(DateTimeOffset.MaxValue.ToFileTime() + 1);
-
-            // Exercise system
-            var offset = DateTimeOffsetFromLargeInteger(largeInteger);
-
-            // Verify outcome
-            offset.Should().BeNull();
-        }
-
-        [Fact]
-        public void DateTimeOffsetFromLargeIntegerShouldReturnNullForSmallValue()
+        public void DateTimeFromLargeIntegerShouldReturnNullForSmallValue()
         {
             // Fixture setup
             var largeInteger = Int64ToLargeInteger(-1);
 
             // Exercise system
-            var offset = DateTimeOffsetFromLargeInteger(largeInteger);
+            var dateTime = DateTimeFromLargeInteger(largeInteger);
 
             // Verify outcome
-            offset.Should().BeNull();
+            dateTime.Should().BeNull();
         }
 
         [Fact]
-        public void DateTimeOffsetFromLargeIntegerShouldReturnOffset()
+        public void DateTimeFromLargeIntegerShouldReturnDateTime()
         {
             // Fixture setup
-            var expected = DateTimeOffset.Now;
-            var largeInteger = DateTimeOffsetToLargeInteger(expected);
+            var expected = DateTime.Now;
+            var largeInteger = DateTimeToLargeInteger(expected);
 
             // Exercise system
-            var actual = DateTimeOffsetFromLargeInteger(largeInteger);
+            var actual = DateTimeFromLargeInteger(largeInteger);
 
             // Verify outcome
             actual.Should().Be(expected);
         }
 
         [Fact]
-        public void DateTimeOffsetToLargeIntegerShouldReturnZeroForVerySmallOffset()
+        public void DateTimeToLargeIntegerShouldReturnZeroForVerySmallDateTime()
         {
             // Fixture setup
 
             // Exercise system
-            var largeInteger = DateTimeOffsetToLargeInteger(DateTimeOffset.MinValue);
+            var largeInteger = DateTimeToLargeInteger(DateTime.MinValue);
 
             // Verify outcome
             largeInteger.HighPart.Should().Be(0);
@@ -230,52 +217,52 @@ namespace Bstm.DirectoryServices.UnitTests
         }
 
         [Fact]
-        public void DateTimeOffsetPropertyShouldConvertToDirectoryValue()
+        public void DateTimePropertyShouldConvertToDirectoryValue()
         {
             // Fixture setup
-            var offset = DateTimeOffset.Now;
+            var dateTime = DateTime.Now;
 
             var properties = Enumeration.GetAll<DirectoryProperty>()
-                .Where(p => p.NotionalType == typeof(DateTimeOffset?)
+                .Where(p => p.NotionalType == typeof(DateTime?)
                             && p.DirectoryType.IsEquivalentTo(typeof(IADsLargeInteger)));
 
             // Exercise system
-            var offsets = properties
-                .Select(p => p.ConvertToDirectoryValue(offset))
+            var dateTimes = properties
+                .Select(p => p.ConvertToDirectoryValue(dateTime))
                 .OfType<IADsLargeInteger>()
-                .Select(DateTimeOffsetFromLargeInteger)
+                .Select(DateTimeFromLargeInteger)
                 .ToList();
 
             // Verify outcome
-            offsets.Should().HaveCountGreaterThan(0);
-            offsets.ForEach(r => r.Should().Be(offset));
+            dateTimes.Should().HaveCountGreaterThan(0);
+            dateTimes.ForEach(r => r.Should().Be(dateTime));
         }
 
         [Fact]
-        public void DateTimeOffsetPropertyShouldConvertFromDirectoryValue()
+        public void DateTimePropertyShouldConvertFromDirectoryValue()
         {
             // Fixture setup
-            var offset = DateTimeOffset.Now;
+            var dateTime = DateTime.Now;
 
             var properties = Enumeration.GetAll<DirectoryProperty>()
-                .Where(p => p.NotionalType == typeof(DateTimeOffset?)
+                .Where(p => p.NotionalType == typeof(DateTime?)
                             && p.DirectoryType.IsEquivalentTo(typeof(IADsLargeInteger)));
 
             // Exercise system
-            var offsets = properties
-                .Select(p => p.ConvertFromDirectoryValue(DateTimeOffsetToLargeInteger(offset)))
+            var dateTimes = properties
+                .Select(p => p.ConvertFromDirectoryValue(DateTimeToLargeInteger(dateTime)))
                 .ToList();
 
             // Verify outcome
-            offsets.Should().HaveCountGreaterThan(0);
-            offsets.ForEach(f => f.Should().Be(offset));
+            dateTimes.Should().HaveCountGreaterThan(0);
+            dateTimes.ForEach(f => f.Should().Be(dateTime));
         }
 
         [Fact]
         public void LongLargeIntegerPropertyShouldConvertToDirectoryValue()
         {
             // Fixture setup
-            var number = DateTimeOffset.Now.Ticks;
+            var number = DateTime.Now.Ticks;
 
             var properties = Enumeration.GetAll<DirectoryProperty>()
                 .Where(p => p.NotionalType == typeof(long)
@@ -297,7 +284,7 @@ namespace Bstm.DirectoryServices.UnitTests
         public void LongLargeIntegerPropertyShouldConvertFromDirectoryValue()
         {
             // Fixture setup
-            var number = DateTimeOffset.Now.Ticks;
+            var number = DateTime.Now.Ticks;
 
             var properties = Enumeration.GetAll<DirectoryProperty>()
                 .Where(p => p.NotionalType == typeof(long)
