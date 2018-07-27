@@ -76,6 +76,9 @@ namespace Bstm.DirectoryServices
         public static DirectoryProperty AccountExpires { get; } =
             new DirectoryProperty("accountExpires", DirectoryPropertySyntax.Interval, false, typeof(DateTimeOffset?), typeof(IADsLargeInteger));
 
+        public static DirectoryProperty BadPwdCount { get; } =
+            new DirectoryProperty("badPwdCount", DirectoryPropertySyntax.Enumeration, false, typeof(int), typeof(int));
+
         public DirectoryPropertySyntax Syntax { get; }
 
         public bool Multivalued { get; }

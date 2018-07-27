@@ -239,5 +239,16 @@ namespace Bstm.DirectoryServices.UnitTests
             user.AccountExpires.Should().Be(accountExpires);
             user.GetPropertyValue<DateTimeOffset?>(AccountExpires).Should().Be(accountExpires);
         }
+
+        [Fact]
+        public void BadLoginCountShouldBeRead()
+        {
+            // Fixture setup
+            var user = Fixture.Create<User>();
+            user.SetPropertyValue(BadPwdCount, 2);
+
+            // Exercise system and verify outcome
+            user.BadLoginCount.Should().Be(2);
+        }
     }
 }

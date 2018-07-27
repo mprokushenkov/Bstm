@@ -36,6 +36,8 @@ namespace Bstm.DirectoryServices
             set => SetPropertyValue(DirectoryProperty.AccountExpires, value);
         }
 
+        public int BadLoginCount => GetPropertyValue<int>(BadPwdCount);
+
         public string Department
         {
             get => GetPropertyValue<string>(DirectoryProperty.Department);

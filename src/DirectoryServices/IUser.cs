@@ -10,6 +10,8 @@ namespace Bstm.DirectoryServices
         [CanBeNull]
         DateTimeOffset? AccountExpires { get; set; }
 
+        int BadLoginCount { get; }
+
         [CanBeNull]
         string Department { get; set; }
 
