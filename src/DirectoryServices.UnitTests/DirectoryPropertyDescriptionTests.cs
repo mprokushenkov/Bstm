@@ -60,6 +60,7 @@ namespace Bstm.DirectoryServices.UnitTests
             CheckPropertyCorrectDefined(AccountExpires, "accountExpires", Interval, false, typeof(DateTime?), typeof(IADsLargeInteger));
             CheckPropertyCorrectDefined(BadPwdCount, "badPwdCount", Enumeration, false, typeof(int), typeof(int));
             CheckPropertyCorrectDefined(LockoutTime, "lockoutTime", Interval, false, typeof(long), typeof(IADsLargeInteger));
+            CheckPropertyCorrectDefined(LastLogon, "lastLogon", Interval, false, typeof(DateTime?), typeof(IADsLargeInteger));
         }
 
         private static void CheckPropertyCorrectDefined(

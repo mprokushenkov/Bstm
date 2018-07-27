@@ -100,6 +100,11 @@ namespace Bstm.DirectoryServices
 
         public bool AccountLocked => GetPropertyValue<long>(LockoutTime) > 0;
 
+        public DateTime? LastLoginAt
+        {
+            get { return GetPropertyValue<DateTime?>(LastLogon); }
+        }
+
         public IMemberOfCollection MemberOf { get; }
 
         internal bool HasAccountControl(ADS_USER_FLAG flag)

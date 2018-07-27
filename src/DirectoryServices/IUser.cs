@@ -44,6 +44,9 @@ namespace Bstm.DirectoryServices
 
         bool AccountLocked { get; }
 
+        [CanBeNull]
+        DateTime? LastLoginAt { get; }
+
         IMemberOfCollection MemberOf { get; }
     }
 }

@@ -261,5 +261,18 @@ namespace Bstm.DirectoryServices.UnitTests
             // Exercise system and verify outcome
             user.AccountLocked.Should().BeTrue();
         }
+
+        [Fact]
+        public void LastLoginAtAtShouldBeRead()
+        {
+            // Fixture setup
+            var user = Fixture.Create<User>();
+            var lastLoginAt = Fixture.Create<DateTime?>();
+            user.SetPropertyValue(LastLogon, lastLoginAt);
+
+            // Exercise system and verify outcome
+            var userLastLoginAt = user.LastLoginAt;
+            userLastLoginAt.Should().Be(lastLoginAt);
+        }
     }
 }

@@ -82,6 +82,9 @@ namespace Bstm.DirectoryServices
         public static DirectoryProperty LockoutTime { get; } = new DirectoryProperty(
             "lockoutTime",DirectoryPropertySyntax.Interval, false, typeof(long), typeof(IADsLargeInteger));
 
+        public static DirectoryProperty LastLogon { get; } = new DirectoryProperty(
+            "lastLogon", DirectoryPropertySyntax.Interval, false, typeof(DateTime?), typeof(IADsLargeInteger));
+
         public DirectoryPropertySyntax Syntax { get; }
 
         public bool Multivalued { get; }
