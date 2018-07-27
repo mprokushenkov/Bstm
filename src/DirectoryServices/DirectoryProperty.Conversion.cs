@@ -35,12 +35,13 @@ namespace Bstm.DirectoryServices
                     return dn.ToString();
                 case ADS_USER_FLAG flag:
                     return (int) flag;
+                case DateTimeOffset offset:
+                    return DateTimeOffsetToLargeInteger(offset);
                 default:
                     return value;
             }
         }
 
-        [CanBeNull]
         public object ConvertFromDirectoryValue([CanBeNull] object value)
         {
             if (value == null)
@@ -58,6 +59,8 @@ namespace Bstm.DirectoryServices
                         return DN.Parse(s);
                     case int i when NotionalType == typeof(ADS_USER_FLAG):
                         return (ADS_USER_FLAG) i;
+                    case IADsLargeInteger i when NotionalType == typeof(DateTimeOffset?):
+                        return DateTimeOffsetFromLargeInteger(i);
                     default:
                         return value;
                 }

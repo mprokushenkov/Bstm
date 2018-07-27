@@ -57,6 +57,7 @@ namespace Bstm.DirectoryServices.UnitTests
             CheckPropertyCorrectDefined(HomeDirectory, "homeDirectory", UnicodeString, false, typeof(string), typeof(string));
             CheckPropertyCorrectDefined(WwwHomePage, "wWWHomePage", UnicodeString, false, typeof(string), typeof(string));
             CheckPropertyCorrectDefined(UserAccountControl, "userAccountControl", Enumeration, false, typeof(ADS_USER_FLAG), typeof(int));
+            CheckPropertyCorrectDefined(AccountExpires, "accountExpires", Interval, false, typeof(DateTimeOffset?), typeof(IADsLargeInteger));
         }
 
         private static void CheckPropertyCorrectDefined(
@@ -71,7 +72,7 @@ namespace Bstm.DirectoryServices.UnitTests
             property.Syntax.Should().Be(syntax);
             property.Multivalued.Should().Be(multivalued);
             property.NotionalType.IsEquivalentTo(notionalType).Should().BeTrue();
-            property.DirectoryType.Should().Be(directoryType);
+            property.DirectoryType.IsEquivalentTo(directoryType).Should().BeTrue();
         }
     }
 }

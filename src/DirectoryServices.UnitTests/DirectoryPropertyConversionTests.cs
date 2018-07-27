@@ -6,6 +6,7 @@ using Bstm.UnitTesting;
 using FluentAssertions;
 using Xunit;
 using Xunit.Abstractions;
+using static Bstm.DirectoryServices.DirectoryProperty;
 
 namespace Bstm.DirectoryServices.UnitTests
 {
@@ -16,7 +17,7 @@ namespace Bstm.DirectoryServices.UnitTests
         }
 
         [Fact]
-        public void OctetStringPropertyShouldCreateCorrectSearchFilterString()
+        public void OctetStringPropertyShouldCreateSearchFilterString()
         {
             // Fixture setup
             var guid = Guid.Parse("{3764CBC6-C740-46E3-8291-2C1D7CA3CFA1}");
@@ -33,7 +34,7 @@ namespace Bstm.DirectoryServices.UnitTests
         }
 
         [Fact]
-        public void GuidPropertyShouldConvertToCorrectDirectoryValue()
+        public void GuidPropertyShouldConvertToDirectoryValue()
         {
             // Fixture setup
             var guid = Guid.NewGuid();
@@ -55,7 +56,7 @@ namespace Bstm.DirectoryServices.UnitTests
         }
 
         [Fact]
-        public void GuidPropertyShouldCorrectConvertFromDirectoryValue()
+        public void GuidPropertyShouldConvertFromDirectoryValue()
         {
             // Fixture setup
             var guid = Guid.NewGuid();
@@ -75,7 +76,7 @@ namespace Bstm.DirectoryServices.UnitTests
         }
 
         [Fact]
-        public void DNPropertyShouldConvertToCorrectDirectoryValue()
+        public void DNPropertyShouldConvertToDirectoryValue()
         {
             // Fixture setup
             var dn = DN.Parse("CN=John");
@@ -97,7 +98,7 @@ namespace Bstm.DirectoryServices.UnitTests
         }
 
         [Fact]
-        public void DNPropertyShouldCorrectConvertFromDirectoryValue()
+        public void DNPropertyShouldConvertFromDirectoryValue()
         {
             // Fixture setup
             var dn = DN.Parse("CN=John");
@@ -117,7 +118,7 @@ namespace Bstm.DirectoryServices.UnitTests
         }
 
         [Fact]
-        public void AdsUserFlagPropertyShouldConvertToCorrectDirectoryValue()
+        public void AdsUserFlagPropertyShouldConvertToDirectoryValue()
         {
             // Fixture setup
             const ADS_USER_FLAG userFlag = ADS_USER_FLAG.ADS_UF_ACCOUNTDISABLE;
@@ -140,7 +141,7 @@ namespace Bstm.DirectoryServices.UnitTests
         }
 
         [Fact]
-        public void AdsUserFlagPropertyShouldCorrectConvertFromDirectoryValue()
+        public void AdsUserFlagPropertyShouldConvertFromDirectoryValue()
         {
             // Fixture setup
             const ADS_USER_FLAG userFlag = ADS_USER_FLAG.ADS_UF_ACCOUNTDISABLE;
@@ -166,7 +167,7 @@ namespace Bstm.DirectoryServices.UnitTests
             // Fixture setup
 
             // Exercise system and verify outcome
-            DirectoryProperty.DistinguishedName.ConvertFromDirectoryValue(null).Should().BeNull();
+            DistinguishedName.ConvertFromDirectoryValue(null).Should().BeNull();
         }
 
         [Fact]
@@ -175,7 +176,7 @@ namespace Bstm.DirectoryServices.UnitTests
             // Fixture setup
 
             // Exercise system
-            Action call = () => DirectoryProperty.DistinguishedName.ConvertFromDirectoryValue("non DN string");
+            Action call = () => DistinguishedName.ConvertFromDirectoryValue("non DN string");
 
             // Verify outcome
             call.Should().Throw<DirectoryServicesException>()
@@ -186,10 +187,10 @@ namespace Bstm.DirectoryServices.UnitTests
         public void DateTimeOffsetFromLargeIntegerShouldReturnNullForVeryBigValue()
         {
             // Fixture setup
-            var largeInteger = DirectoryProperty.Int64ToLargeInteger(DateTimeOffset.MaxValue.ToFileTime() + 1);
+            var largeInteger = Int64ToLargeInteger(DateTimeOffset.MaxValue.ToFileTime() + 1);
 
             // Exercise system
-            var offset = DirectoryProperty.DateTimeOffsetFromLargeInteger(largeInteger);
+            var offset = DateTimeOffsetFromLargeInteger(largeInteger);
 
             // Verify outcome
             offset.Should().BeNull();
@@ -199,24 +200,24 @@ namespace Bstm.DirectoryServices.UnitTests
         public void DateTimeOffsetFromLargeIntegerShouldReturnNullForSmallValue()
         {
             // Fixture setup
-            var largeInteger = DirectoryProperty.Int64ToLargeInteger(-1);
+            var largeInteger = Int64ToLargeInteger(-1);
 
             // Exercise system
-            var offset = DirectoryProperty.DateTimeOffsetFromLargeInteger(largeInteger);
+            var offset = DateTimeOffsetFromLargeInteger(largeInteger);
 
             // Verify outcome
             offset.Should().BeNull();
         }
 
         [Fact]
-        public void DateTimeOffsetFromLargeIntegerShouldReturnCorrectOffset()
+        public void DateTimeOffsetFromLargeIntegerShouldReturnOffset()
         {
             // Fixture setup
             var expected = DateTimeOffset.Now;
-            var largeInteger = DirectoryProperty.DateTimeOffsetToLargeInteger(expected);
+            var largeInteger = DateTimeOffsetToLargeInteger(expected);
 
             // Exercise system
-            var actual = DirectoryProperty.DateTimeOffsetFromLargeInteger(largeInteger);
+            var actual = DateTimeOffsetFromLargeInteger(largeInteger);
 
             // Verify outcome
             actual.Should().Be(expected);
@@ -228,11 +229,55 @@ namespace Bstm.DirectoryServices.UnitTests
             // Fixture setup
 
             // Exercise system
-            var largeInteger = DirectoryProperty.DateTimeOffsetToLargeInteger(DateTimeOffset.MinValue);
+            var largeInteger = DateTimeOffsetToLargeInteger(DateTimeOffset.MinValue);
 
             // Verify outcome
             largeInteger.HighPart.Should().Be(0);
             largeInteger.LowPart.Should().Be(0);
+        }
+
+        [Fact]
+        public void DateTimeOffsetPropertyShouldConvertToDirectoryValue()
+        {
+            // Fixture setup
+            var offset = DateTimeOffset.Now;
+
+            var properties = Enumeration
+                .GetAll<DirectoryProperty>()
+                .Where(p => p.NotionalType == typeof(DateTimeOffset?)
+                            && p.DirectoryType.IsEquivalentTo(typeof(IADsLargeInteger)));
+
+            // Exercise system
+            var offsets = properties
+                .Select(p => p.ConvertToDirectoryValue(offset))
+                .OfType<IADsLargeInteger>()
+                .Select(DateTimeOffsetFromLargeInteger)
+                .ToList();
+
+            // Verify outcome
+            offsets.Should().HaveCountGreaterThan(0);
+            offsets.ForEach(r => r.Should().Be(offset));
+        }
+
+        [Fact]
+        public void DateTimeOffsetPropertyShouldConvertFromDirectoryValue()
+        {
+            // Fixture setup
+            var offset = DateTimeOffset.Now;
+
+            var properties = Enumeration
+                .GetAll<DirectoryProperty>()
+                .Where(p => p.NotionalType == typeof(DateTimeOffset?)
+                            && p.DirectoryType.IsEquivalentTo(typeof(IADsLargeInteger)));
+
+            // Exercise system
+            var offsets = properties
+                .Select(p => p.ConvertFromDirectoryValue(DateTimeOffsetToLargeInteger(offset)))
+                .ToList();
+
+            // Verify outcome
+            offsets.Should().HaveCountGreaterThan(0);
+            offsets.ForEach(f => f.Should().Be(offset));
         }
     }
 }

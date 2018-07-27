@@ -1,4 +1,5 @@
-﻿using System.DirectoryServices;
+﻿using System;
+using System.DirectoryServices;
 using ActiveDs;
 using JetBrains.Annotations;
 using static Bstm.DirectoryServices.DirectoryProperty;
@@ -27,6 +28,12 @@ namespace Bstm.DirectoryServices
                     ClearAccountControl(ADS_USER_FLAG.ADS_UF_ACCOUNTDISABLE);
                 }
             }
+        }
+
+        public DateTimeOffset? AccountExpires
+        {
+            get => GetPropertyValue<DateTimeOffset?>(DirectoryProperty.AccountExpires);
+            set => SetPropertyValue(DirectoryProperty.AccountExpires, value);
         }
 
         public string Department

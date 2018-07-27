@@ -1,4 +1,5 @@
-﻿using System.DirectoryServices;
+﻿using System;
+using System.DirectoryServices;
 using ActiveDs;
 using AutoFixture;
 using AutoFixture.Idioms;
@@ -222,6 +223,21 @@ namespace Bstm.DirectoryServices.UnitTests
 
             // Verify outcome
             user.HasAccountControl(ADS_USER_FLAG.ADS_UF_ACCOUNTDISABLE).Should().BeFalse();
+        }
+
+        [Fact]
+        public void AccountExpiresShouldBeStored()
+        {
+            // Fixture setup
+            var user = Fixture.Create<User>();
+            var accountExpires = Fixture.Create<DateTimeOffset?>();
+
+            // Exercise system
+            user.AccountExpires = accountExpires;
+
+            // Verify outcome
+            user.AccountExpires.Should().Be(accountExpires);
+            user.GetPropertyValue<DateTimeOffset?>(AccountExpires).Should().Be(accountExpires);
         }
     }
 }

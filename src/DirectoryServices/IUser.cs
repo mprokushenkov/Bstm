@@ -1,10 +1,14 @@
-﻿using JetBrains.Annotations;
+﻿using System;
+using JetBrains.Annotations;
 
 namespace Bstm.DirectoryServices
 {
     public interface IUser : IDirectoryObject
     {
         bool AccountDisabled { get; set; }
+
+        [CanBeNull]
+        DateTimeOffset? AccountExpires { get; set; }
 
         [CanBeNull]
         string Department { get; set; }
