@@ -226,17 +226,17 @@ namespace Bstm.DirectoryServices.UnitTests
         }
 
         [Fact]
-        public void AccountExpiresShouldBeStored()
+        public void AccountExpiresAtShouldBeStored()
         {
             // Fixture setup
             var user = Fixture.Create<User>();
             var accountExpires = Fixture.Create<DateTimeOffset?>();
 
             // Exercise system
-            user.AccountExpires = accountExpires;
+            user.AccountExpiresAt = accountExpires;
 
             // Verify outcome
-            user.AccountExpires.Should().Be(accountExpires);
+            user.AccountExpiresAt.Should().Be(accountExpires);
             user.GetPropertyValue<DateTimeOffset?>(AccountExpires).Should().Be(accountExpires);
         }
 
@@ -249,6 +249,17 @@ namespace Bstm.DirectoryServices.UnitTests
 
             // Exercise system and verify outcome
             user.BadLoginCount.Should().Be(2);
+        }
+
+        [Fact]
+        public void AccountLockedShouldBeRead()
+        {
+            // Fixture setup
+            var user = Fixture.Create<User>();
+            user.SetPropertyValue(LockoutTime, 2L);
+
+            // Exercise system and verify outcome
+            user.AccountLocked.Should().BeTrue();
         }
     }
 }

@@ -79,6 +79,9 @@ namespace Bstm.DirectoryServices
         public static DirectoryProperty BadPwdCount { get; } =
             new DirectoryProperty("badPwdCount", DirectoryPropertySyntax.Enumeration, false, typeof(int), typeof(int));
 
+        public static DirectoryProperty LockoutTime { get; } = new DirectoryProperty(
+            "lockoutTime",DirectoryPropertySyntax.Interval, false, typeof(long), typeof(IADsLargeInteger));
+
         public DirectoryPropertySyntax Syntax { get; }
 
         public bool Multivalued { get; }

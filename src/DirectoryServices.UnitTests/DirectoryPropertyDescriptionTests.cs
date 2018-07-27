@@ -59,6 +59,7 @@ namespace Bstm.DirectoryServices.UnitTests
             CheckPropertyCorrectDefined(UserAccountControl, "userAccountControl", Enumeration, false, typeof(ADS_USER_FLAG), typeof(int));
             CheckPropertyCorrectDefined(AccountExpires, "accountExpires", Interval, false, typeof(DateTimeOffset?), typeof(IADsLargeInteger));
             CheckPropertyCorrectDefined(BadPwdCount, "badPwdCount", Enumeration, false, typeof(int), typeof(int));
+            CheckPropertyCorrectDefined(LockoutTime, "lockoutTime", Interval, false, typeof(long), typeof(IADsLargeInteger));
         }
 
         private static void CheckPropertyCorrectDefined(

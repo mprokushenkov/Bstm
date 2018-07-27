@@ -22,8 +22,7 @@ namespace Bstm.DirectoryServices.UnitTests
             // Fixture setup
             var guid = Guid.Parse("{3764CBC6-C740-46E3-8291-2C1D7CA3CFA1}");
 
-            var properties = Enumeration
-                .GetAll<DirectoryProperty>()
+            var properties = Enumeration.GetAll<DirectoryProperty>()
                 .Where(p => p.Syntax == DirectoryPropertySyntax.OctetString && p.NotionalType == typeof(Guid?));
 
             // Exercise system
@@ -39,8 +38,7 @@ namespace Bstm.DirectoryServices.UnitTests
             // Fixture setup
             var guid = Guid.NewGuid();
 
-            var properties = Enumeration
-                .GetAll<DirectoryProperty>()
+            var properties = Enumeration.GetAll<DirectoryProperty>()
                 .Where(p => p.Syntax == DirectoryPropertySyntax.OctetString && p.NotionalType == typeof(Guid));
 
             // Exercise system
@@ -61,8 +59,7 @@ namespace Bstm.DirectoryServices.UnitTests
             // Fixture setup
             var guid = Guid.NewGuid();
 
-            var properties = Enumeration
-                .GetAll<DirectoryProperty>()
+            var properties = Enumeration.GetAll<DirectoryProperty>()
                 .Where(p => p.Syntax == DirectoryPropertySyntax.OctetString && p.NotionalType == typeof(Guid));
 
             // Exercise system
@@ -81,8 +78,7 @@ namespace Bstm.DirectoryServices.UnitTests
             // Fixture setup
             var dn = DN.Parse("CN=John");
 
-            var properties = Enumeration
-                .GetAll<DirectoryProperty>()
+            var properties = Enumeration.GetAll<DirectoryProperty>()
                 .Where(p => p.Syntax == DirectoryPropertySyntax.DNString && p.NotionalType == typeof(DN));
 
             // Exercise system
@@ -103,8 +99,7 @@ namespace Bstm.DirectoryServices.UnitTests
             // Fixture setup
             var dn = DN.Parse("CN=John");
 
-            var properties = Enumeration
-                .GetAll<DirectoryProperty>()
+            var properties = Enumeration.GetAll<DirectoryProperty>()
                 .Where(p => p.Syntax == DirectoryPropertySyntax.DNString && p.NotionalType == typeof(DN));
 
             // Exercise system
@@ -123,8 +118,7 @@ namespace Bstm.DirectoryServices.UnitTests
             // Fixture setup
             const ADS_USER_FLAG userFlag = ADS_USER_FLAG.ADS_UF_ACCOUNTDISABLE;
 
-            var properties = Enumeration
-                .GetAll<DirectoryProperty>()
+            var properties = Enumeration.GetAll<DirectoryProperty>()
                 .Where(p => p.Syntax == DirectoryPropertySyntax.Enumeration
                             && p.NotionalType.IsEquivalentTo(typeof(ADS_USER_FLAG)));
 
@@ -146,8 +140,7 @@ namespace Bstm.DirectoryServices.UnitTests
             // Fixture setup
             const ADS_USER_FLAG userFlag = ADS_USER_FLAG.ADS_UF_ACCOUNTDISABLE;
 
-            var properties = Enumeration
-                .GetAll<DirectoryProperty>()
+            var properties = Enumeration.GetAll<DirectoryProperty>()
                 .Where(p => p.Syntax == DirectoryPropertySyntax.Enumeration
                             && p.NotionalType.IsEquivalentTo(typeof(ADS_USER_FLAG)));
 
@@ -242,8 +235,7 @@ namespace Bstm.DirectoryServices.UnitTests
             // Fixture setup
             var offset = DateTimeOffset.Now;
 
-            var properties = Enumeration
-                .GetAll<DirectoryProperty>()
+            var properties = Enumeration.GetAll<DirectoryProperty>()
                 .Where(p => p.NotionalType == typeof(DateTimeOffset?)
                             && p.DirectoryType.IsEquivalentTo(typeof(IADsLargeInteger)));
 
@@ -265,8 +257,7 @@ namespace Bstm.DirectoryServices.UnitTests
             // Fixture setup
             var offset = DateTimeOffset.Now;
 
-            var properties = Enumeration
-                .GetAll<DirectoryProperty>()
+            var properties = Enumeration.GetAll<DirectoryProperty>()
                 .Where(p => p.NotionalType == typeof(DateTimeOffset?)
                             && p.DirectoryType.IsEquivalentTo(typeof(IADsLargeInteger)));
 
@@ -278,6 +269,48 @@ namespace Bstm.DirectoryServices.UnitTests
             // Verify outcome
             offsets.Should().HaveCountGreaterThan(0);
             offsets.ForEach(f => f.Should().Be(offset));
+        }
+
+        [Fact]
+        public void LongLargeIntegerPropertyShouldConvertToDirectoryValue()
+        {
+            // Fixture setup
+            var number = DateTimeOffset.Now.Ticks;
+
+            var properties = Enumeration.GetAll<DirectoryProperty>()
+                .Where(p => p.NotionalType == typeof(long)
+                            && p.DirectoryType.IsEquivalentTo(typeof(IADsLargeInteger)));
+
+            // Exercise system
+            var numbers = properties
+                .Select(p => p.ConvertToDirectoryValue(number))
+                .OfType<IADsLargeInteger>()
+                .Select(Int64FromLargeInteger)
+                .ToList();
+
+            // Verify outcome
+            numbers.Should().HaveCountGreaterThan(0);
+            numbers.ForEach(n => n.Should().Be(number));
+        }
+
+        [Fact]
+        public void LongLargeIntegerPropertyShouldConvertFromDirectoryValue()
+        {
+            // Fixture setup
+            var number = DateTimeOffset.Now.Ticks;
+
+            var properties = Enumeration.GetAll<DirectoryProperty>()
+                .Where(p => p.NotionalType == typeof(long)
+                            && p.DirectoryType.IsEquivalentTo(typeof(IADsLargeInteger)));
+
+            // Exercise system
+            var numbers = properties
+                .Select(p => p.ConvertFromDirectoryValue(Int64ToLargeInteger(number)))
+                .ToList();
+
+            // Verify outcome
+            numbers.Should().HaveCountGreaterThan(0);
+            numbers.ForEach(n => n.Should().Be(number));
         }
     }
 }

@@ -30,9 +30,9 @@ namespace Bstm.DirectoryServices
             }
         }
 
-        public DateTimeOffset? AccountExpires
+        public DateTimeOffset? AccountExpiresAt
         {
-            get => GetPropertyValue<DateTimeOffset?>(DirectoryProperty.AccountExpires);
+            get => GetPropertyValue<DateTimeOffset?>(AccountExpires);
             set => SetPropertyValue(DirectoryProperty.AccountExpires, value);
         }
 
@@ -97,6 +97,8 @@ namespace Bstm.DirectoryServices
             get => GetPropertyValue<string>(WwwHomePage);
             set => SetPropertyValue(WwwHomePage, value);
         }
+
+        public bool AccountLocked => GetPropertyValue<long>(LockoutTime) > 0;
 
         public IMemberOfCollection MemberOf { get; }
 

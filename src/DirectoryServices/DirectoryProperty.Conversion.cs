@@ -37,6 +37,8 @@ namespace Bstm.DirectoryServices
                     return (int) flag;
                 case DateTimeOffset offset:
                     return DateTimeOffsetToLargeInteger(offset);
+                case long l when DirectoryType == typeof(IADsLargeInteger):
+                    return Int64ToLargeInteger(l);
                 default:
                     return value;
             }
@@ -61,6 +63,8 @@ namespace Bstm.DirectoryServices
                         return (ADS_USER_FLAG) i;
                     case IADsLargeInteger i when NotionalType == typeof(DateTimeOffset?):
                         return DateTimeOffsetFromLargeInteger(i);
+                    case IADsLargeInteger i when NotionalType == typeof(long):
+                        return Int64FromLargeInteger(i);
                     default:
                         return value;
                 }
