@@ -86,7 +86,7 @@ namespace Bstm.DirectoryServices
         {
             try
             {
-                return DateTime.FromFileTime(Int64FromLargeInteger(largeInteger));
+                return DateTime.FromFileTimeUtc(Int64FromLargeInteger(largeInteger));
             }
             catch (ArgumentOutOfRangeException)
             {
@@ -99,11 +99,11 @@ namespace Bstm.DirectoryServices
         {
             try
             {
-                return Int64ToLargeInteger(dateTime.ToFileTime());
+                return Int64ToLargeInteger(dateTime.ToFileTimeUtc());
             }
             catch (ArgumentOutOfRangeException)
             {
-                // in case of very small file time
+                // in case of very small filetime 
                 return new LargeInteger();
             }
         }

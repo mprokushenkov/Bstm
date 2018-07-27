@@ -12,6 +12,8 @@ namespace Bstm.DirectoryServices.UnitTests
 {
     public sealed class DirectoryPropertyConversionTests : TestBase
     {
+        const long filetime = 131771579408071845;
+
         public DirectoryPropertyConversionTests(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
         {
         }
@@ -193,7 +195,7 @@ namespace Bstm.DirectoryServices.UnitTests
         public void DateTimeFromLargeIntegerShouldReturnDateTime()
         {
             // Fixture setup
-            var expected = DateTime.Now;
+            var expected = DateTime.FromFileTimeUtc(filetime);
             var largeInteger = DateTimeToLargeInteger(expected);
 
             // Exercise system
@@ -220,7 +222,7 @@ namespace Bstm.DirectoryServices.UnitTests
         public void DateTimePropertyShouldConvertToDirectoryValue()
         {
             // Fixture setup
-            var dateTime = DateTime.Now;
+            var dateTime = DateTime.FromFileTimeUtc(filetime);
 
             var properties = Enumeration.GetAll<DirectoryProperty>()
                 .Where(p => p.NotionalType == typeof(DateTime?)
@@ -242,7 +244,7 @@ namespace Bstm.DirectoryServices.UnitTests
         public void DateTimePropertyShouldConvertFromDirectoryValue()
         {
             // Fixture setup
-            var dateTime = DateTime.Now;
+            var dateTime = DateTime.FromFileTimeUtc(filetime);
 
             var properties = Enumeration.GetAll<DirectoryProperty>()
                 .Where(p => p.NotionalType == typeof(DateTime?)
