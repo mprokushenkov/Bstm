@@ -17,9 +17,19 @@ namespace Bstm.UnitTesting
 
         protected IFixture Fixture => fixtureLazy.Value;
 
-        protected void WriteMessage(string format, params object[] args)
+        protected void WriteLine(string format, params object[] args)
         {
             testOutputHelper.WriteLine(format, args);
+        }
+
+        protected void WriteLine(object o)
+        {
+            if (o == null)
+            {
+                return;
+            }
+
+            testOutputHelper.WriteLine(o.ToString());
         }
 
         private static IFixture CreateFixture()
