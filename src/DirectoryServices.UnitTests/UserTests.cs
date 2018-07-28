@@ -28,11 +28,11 @@ namespace Bstm.DirectoryServices.UnitTests
             assertion.Verify(typeof(User).GetConstructors());
         }
 
-        [Fact]
-        public void DepartmentShouldBeStored()
+        [Theory]
+        [LocalTestData]
+        public void DepartmentShouldBeStored(IUser user)
         {
             // Fixture setup
-            var user = Fixture.Create<User>();
             var department = Fixture.Create<string>();
 
             // Exercise system
@@ -43,11 +43,11 @@ namespace Bstm.DirectoryServices.UnitTests
             user.GetPropertyValue<string>(Department).Should().Be(department);
         }
 
-        [Fact]
-        public void DescriptionShouldBeStored()
+        [Theory]
+        [LocalTestData]
+        public void DescriptionShouldBeStored(IUser user)
         {
             // Fixture setup
-            var user = Fixture.Create<User>();
             var description = Fixture.Create<string>();
 
             // Exercise system
@@ -58,11 +58,11 @@ namespace Bstm.DirectoryServices.UnitTests
             user.GetPropertyValue<string>(Description).Should().Be(description);
         }
 
-        [Fact]
-        public void DivisionShouldBeStored()
+        [Theory]
+        [LocalTestData]
+        public void DivisionShouldBeStored(IUser user)
         {
             // Fixture setup
-            var user = Fixture.Create<User>();
             var division = Fixture.Create<string>();
 
             // Exercise system
@@ -73,11 +73,11 @@ namespace Bstm.DirectoryServices.UnitTests
             user.GetPropertyValue<string>(Division).Should().Be(division);
         }
 
-        [Fact]
-        public void EmailAddressShouldBeStored()
+        [Theory]
+        [LocalTestData]
+        public void EmailAddressShouldBeStored(IUser user)
         {
             // Fixture setup
-            var user = Fixture.Create<User>();
             var emailAddress = Fixture.Create<string>();
 
             // Exercise system
@@ -88,11 +88,11 @@ namespace Bstm.DirectoryServices.UnitTests
             user.GetPropertyValue<string>(Mail).Should().Be(emailAddress);
         }
 
-        [Fact]
-        public void EmployeeIdShouldBeStored()
+        [Theory]
+        [LocalTestData]
+        public void EmployeeIdShouldBeStored(IUser user)
         {
             // Fixture setup
-            var user = Fixture.Create<User>();
             var employeeId = Fixture.Create<string>();
 
             // Exercise system
@@ -103,11 +103,11 @@ namespace Bstm.DirectoryServices.UnitTests
             user.GetPropertyValue<string>(EmployeeId).Should().Be(employeeId);
         }
 
-        [Fact]
-        public void FaxNumberShouldBeStored()
+        [Theory]
+        [LocalTestData]
+        public void FaxNumberShouldBeStored(IUser user)
         {
             // Fixture setup
-            var user = Fixture.Create<User>();
             var faxNumber = Fixture.Create<string>();
 
             // Exercise system
@@ -118,11 +118,11 @@ namespace Bstm.DirectoryServices.UnitTests
             user.GetPropertyValue<string>(FacsimileTelephoneNumber).Should().Be(faxNumber);
         }
 
-        [Fact]
-        public void FirstNameShouldBeStored()
+        [Theory]
+        [LocalTestData]
+        public void FirstNameShouldBeStored(IUser user)
         {
             // Fixture setup
-            var user = Fixture.Create<User>();
             var firstName = Fixture.Create<string>();
 
             // Exercise system
@@ -133,11 +133,11 @@ namespace Bstm.DirectoryServices.UnitTests
             user.GetPropertyValue<string>(GivenName).Should().Be(firstName);
         }
 
-        [Fact]
-        public void HomeDirectoryShouldBeStored()
+        [Theory]
+        [LocalTestData]
+        public void HomeDirectoryShouldBeStored(IUser user)
         {
             // Fixture setup
-            var user = Fixture.Create<User>();
             var homeDirectory = Fixture.Create<string>();
 
             // Exercise system
@@ -148,11 +148,11 @@ namespace Bstm.DirectoryServices.UnitTests
             user.GetPropertyValue<string>(HomeDirectory).Should().Be(homeDirectory);
         }
 
-        [Fact]
-        public void HomePageShouldBeStored()
+        [Theory]
+        [LocalTestData]
+        public void HomePageShouldBeStored(IUser user)
         {
             // Fixture setup
-            var user = Fixture.Create<User>();
             var homePage = Fixture.Create<string>();
 
             // Exercise system
@@ -163,11 +163,11 @@ namespace Bstm.DirectoryServices.UnitTests
             user.GetPropertyValue<string>(WwwHomePage).Should().Be(homePage);
         }
 
-        [Fact]
-        public void FullNameShouldBeStored()
+        [Theory]
+        [LocalTestData]
+        public void FullNameShouldBeStored(IUser user)
         {
             // Fixture setup
-            var user = Fixture.Create<User>();
             var fullName = Fixture.Create<string>();
 
             // Exercise system
@@ -178,58 +178,56 @@ namespace Bstm.DirectoryServices.UnitTests
             user.GetPropertyValue<string>(DisplayName).Should().Be(fullName);
         }
 
-        [Fact]
-        public void AccountDisabledShoulBeCorrectRead()
+        [Theory]
+        [LocalTestData]
+        public void AccountDisabledShoulBeCorrectRead(IUser user)
         {
             // Fixture setup
-            var user = Fixture
-                .Build<User>()
-                .With(u => u.AccountDisabled, false)
-                .Create();
-
-            user.SetAccountControl(ADS_USER_FLAG.ADS_UF_ACCOUNTDISABLE);
+            user.SetPropertyValue(UserAccountControl, ADS_USER_FLAG.ADS_UF_ACCOUNTDISABLE);
 
             // Exercise system and verify outcome
             user.AccountDisabled.Should().BeTrue();
         }
 
-        [Fact]
-        public void AccountDisabledShoulBeCorrectWritten()
+        [Theory]
+        [LocalTestData]
+        public void AccountDisabledShoulBeCorrectWritten(IUser user)
         {
             // Fixture setup
-            var user = Fixture
-                .Build<User>()
-                .With(u => u.AccountDisabled, false)
-                .Create();
+            user.SetPropertyValue(UserAccountControl, ADS_USER_FLAG.ADS_UF_NORMAL_ACCOUNT);
 
             // Exercise system
             user.AccountDisabled = true;
 
             // Verify outcome
-            user.HasAccountControl(ADS_USER_FLAG.ADS_UF_ACCOUNTDISABLE).Should().BeTrue();
+            user.GetPropertyValue<ADS_USER_FLAG>(UserAccountControl)
+                .HasFlag(ADS_USER_FLAG.ADS_UF_ACCOUNTDISABLE)
+                .Should()
+                .BeTrue();
         }
 
-        [Fact]
-        public void AccountDisabledShoulBeCorrectCleared()
+        [Theory]
+        [LocalTestData]
+        public void AccountDisabledShoulBeCorrectCleared(IUser user)
         {
             // Fixture setup
-            var user = Fixture
-                .Build<User>()
-                .With(u => u.AccountDisabled, true)
-                .Create();
+            user.SetPropertyValue(UserAccountControl, ADS_USER_FLAG.ADS_UF_ACCOUNTDISABLE);
 
             // Exercise system
             user.AccountDisabled = false;
 
             // Verify outcome
-            user.HasAccountControl(ADS_USER_FLAG.ADS_UF_ACCOUNTDISABLE).Should().BeFalse();
+            user.GetPropertyValue<ADS_USER_FLAG>(UserAccountControl)
+                .HasFlag(ADS_USER_FLAG.ADS_UF_ACCOUNTDISABLE)
+                .Should()
+                .BeFalse();
         }
 
-        [Fact]
-        public void AccountExpiresAtShouldBeStored()
+        [Theory]
+        [LocalTestData]
+        public void AccountExpiresAtShouldBeStored(IUser user)
         {
             // Fixture setup
-            var user = Fixture.Create<User>();
             var accountExpires = Fixture.Create<DateTime?>();
 
             // Exercise system
@@ -240,39 +238,55 @@ namespace Bstm.DirectoryServices.UnitTests
             user.GetPropertyValue<DateTime?>(AccountExpires).Should().Be(accountExpires);
         }
 
-        [Fact]
-        public void BadLoginCountShouldBeRead()
+        [Theory]
+        [LocalTestData]
+        public void BadLoginCountShouldBeRead(IUser user)
         {
             // Fixture setup
-            var user = Fixture.Create<User>();
             user.SetPropertyValue(BadPwdCount, 2);
 
             // Exercise system and verify outcome
             user.BadLoginCount.Should().Be(2);
         }
 
-        [Fact]
-        public void AccountLockedShouldBeRead()
+        [Theory]
+        [LocalTestData]
+        public void AccountLockedShouldBeRead(IUser user)
         {
             // Fixture setup
-            var user = Fixture.Create<User>();
             user.SetPropertyValue(LockoutTime, 2L);
 
             // Exercise system and verify outcome
             user.AccountLocked.Should().BeTrue();
         }
 
-        [Fact]
-        public void LastLoginAtAtShouldBeRead()
+        [Theory]
+        [LocalTestData]
+        public void LastLoginAtAtShouldBeRead(IUser user)
         {
             // Fixture setup
-            var user = Fixture.Create<User>();
             var lastLoginAt = Fixture.Create<DateTime?>();
             user.SetPropertyValue(LastLogon, lastLoginAt);
 
             // Exercise system and verify outcome
             var userLastLoginAt = user.LastLoginAt;
             userLastLoginAt.Should().Be(lastLoginAt);
+        }
+
+        private class LocalTestDataAttribute : AutoMoqDataAttribute
+        {
+            public LocalTestDataAttribute() : base(CreateFixture)
+            {
+            }
+
+            private new static IFixture CreateFixture()
+            {
+                var fixture = AutoMoqDataAttribute.CreateFixture();
+                var user = fixture.Build<User>().Without(u => u.AccountDisabled).Create();
+                fixture.Inject((IUser) user);
+
+                return fixture;
+            }
         }
     }
 }

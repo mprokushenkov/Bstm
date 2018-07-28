@@ -15,18 +15,24 @@ namespace Bstm.DirectoryServices
 
         public bool AccountDisabled
         {
-            get => HasAccountControl(ADS_USER_FLAG.ADS_UF_ACCOUNTDISABLE);
+            get => GetPropertyValue<ADS_USER_FLAG>(UserAccountControl).HasFlag(ADS_USER_FLAG.ADS_UF_ACCOUNTDISABLE);
 
             set
             {
+                // ReSharper disable BitwiseOperatorOnEnumWithoutFlags
+
+                var currentValue = GetPropertyValue<ADS_USER_FLAG>(UserAccountControl);
+
                 if (value)
                 {
-                    SetAccountControl(ADS_USER_FLAG.ADS_UF_ACCOUNTDISABLE);
+                    SetPropertyValue(UserAccountControl, currentValue | ADS_USER_FLAG.ADS_UF_ACCOUNTDISABLE);
                 }
                 else
                 {
-                    ClearAccountControl(ADS_USER_FLAG.ADS_UF_ACCOUNTDISABLE);
+                    SetPropertyValue(UserAccountControl, currentValue & ~ADS_USER_FLAG.ADS_UF_ACCOUNTDISABLE);
                 }
+
+                // ReSharper restore BitwiseOperatorOnEnumWithoutFlags
             }
         }
 
@@ -106,24 +112,5 @@ namespace Bstm.DirectoryServices
         }
 
         public IMemberOfCollection MemberOf { get; }
-
-        internal bool HasAccountControl(ADS_USER_FLAG flag)
-        {
-            return GetPropertyValue<ADS_USER_FLAG>(UserAccountControl).HasFlag(flag);
-        }
-
-        internal void SetAccountControl(ADS_USER_FLAG flag)
-        {
-            // ReSharper disable once BitwiseOperatorOnEnumWithoutFlags
-            var newValue = GetPropertyValue<ADS_USER_FLAG>(UserAccountControl) | flag;
-            SetPropertyValue(UserAccountControl, newValue);
-        }
-
-        private void ClearAccountControl(ADS_USER_FLAG flag)
-        {
-            // ReSharper disable once BitwiseOperatorOnEnumWithoutFlags
-            var newValue = GetPropertyValue<ADS_USER_FLAG>(UserAccountControl) & ~flag;
-            SetPropertyValue(UserAccountControl, newValue);
-        }
     }
 }
