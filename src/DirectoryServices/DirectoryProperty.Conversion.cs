@@ -86,7 +86,8 @@ namespace Bstm.DirectoryServices
         {
             try
             {
-                return DateTime.FromFileTimeUtc(Int64FromLargeInteger(largeInteger));
+                var integer = Int64FromLargeInteger(largeInteger);
+                return integer != 0 ? DateTime.FromFileTimeUtc(integer) : default(DateTime?);
             }
             catch (ArgumentOutOfRangeException)
             {

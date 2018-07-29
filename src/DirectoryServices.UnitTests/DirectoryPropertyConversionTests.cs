@@ -206,6 +206,18 @@ namespace Bstm.DirectoryServices.UnitTests
         }
 
         [Fact]
+        public void DateTimeFromLargeIntegerShouldReturnNullForZeroInteger()
+        {
+            // Fixture setup
+
+            // Exercise system
+            var actual = DateTimeFromLargeInteger(new LargeInteger());
+
+            // Verify outcome
+            actual.Should().BeNull();
+        }
+
+        [Fact]
         public void DateTimeToLargeIntegerShouldReturnZeroForVerySmallDateTime()
         {
             // Fixture setup
