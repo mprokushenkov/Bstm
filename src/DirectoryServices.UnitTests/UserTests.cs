@@ -310,6 +310,21 @@ namespace Bstm.DirectoryServices.UnitTests
             user.GetPropertyValue<string>(Sn).Should().Be(lastName);
         }
 
+        [Theory]
+        [LocalTestData]
+        public void LoginScriptShouldBeStored(IUser user)
+        {
+            // Fixture setup
+            var loginScript = Fixture.Create<string>();
+
+            // Exercise system
+            user.LoginScript = loginScript;
+
+            // Verify outcome
+            user.LoginScript.Should().Be(loginScript);
+            user.GetPropertyValue<string>(ScriptPath).Should().Be(loginScript);
+        }
+
         private class LocalTestDataAttribute : AutoMoqDataAttribute
         {
             public LocalTestDataAttribute() : base(CreateFixture)

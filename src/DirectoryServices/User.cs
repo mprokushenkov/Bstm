@@ -118,6 +118,12 @@ namespace Bstm.DirectoryServices
             set => SetPropertyValue(Sn, value);
         }
 
+        public string LoginScript
+        {
+            get => GetPropertyValue<string>(ScriptPath);
+            set => SetPropertyValue(ScriptPath, value);
+        }
+
         public IMemberOfCollection MemberOf { get; }
     }
 }
