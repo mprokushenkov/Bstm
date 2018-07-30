@@ -36,10 +36,10 @@ namespace Bstm.DirectoryServices
             }
         }
 
-        public DateTime? AccountExpiresAt
+        public DateTime? AccountExpires
         {
-            get => GetPropertyValue<DateTime?>(AccountExpires);
-            set => SetPropertyValue(AccountExpires, value);
+            get => GetPropertyValue<DateTime?>(DirectoryProperty.AccountExpires);
+            set => SetPropertyValue(DirectoryProperty.AccountExpires, value);
         }
 
         public int BadLoginCount => GetPropertyValue<int>(BadPwdCount);
@@ -106,9 +106,9 @@ namespace Bstm.DirectoryServices
 
         public bool AccountLocked => GetPropertyValue<long>(LockoutTime) > 0;
 
-        public DateTime? LastLoginAt => GetPropertyValue<DateTime?>(LastLogon);
+        public DateTime? LastFailedLogin => GetPropertyValue<DateTime?>(BadPasswordTime);
 
-        public DateTime? LastFailedLoginAt => GetPropertyValue<DateTime?>(BadPasswordTime);
+        public DateTime? LastLogin => GetPropertyValue<DateTime?>(LastLogon);
 
         public IMemberOfCollection MemberOf { get; }
     }

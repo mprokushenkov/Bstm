@@ -8,7 +8,7 @@ namespace Bstm.DirectoryServices
         bool AccountDisabled { get; set; }
 
         [CanBeNull]
-        DateTime? AccountExpiresAt { get; set; }
+        DateTime? AccountExpires { get; set; }
 
         int BadLoginCount { get; }
 
@@ -45,10 +45,10 @@ namespace Bstm.DirectoryServices
         bool AccountLocked { get; }
 
         [CanBeNull]
-        DateTime? LastLoginAt { get; }
+        DateTime? LastFailedLogin { get; }
 
         [CanBeNull]
-        DateTime? LastFailedLoginAt { get; }
+        DateTime? LastLogin { get; }
 
         IMemberOfCollection MemberOf { get; }
     }

@@ -225,17 +225,16 @@ namespace Bstm.DirectoryServices.UnitTests
 
         [Theory]
         [LocalTestData]
-        public void AccountExpiresAtShouldBeStored(IUser user)
+        public void AccountExpiresShouldBeStored(IUser user)
         {
             // Fixture setup
             var accountExpires = Fixture.Create<DateTime?>();
 
             // Exercise system
-            user.AccountExpiresAt = accountExpires;
+            user.AccountExpires = accountExpires;
 
             // Verify outcome
-            user.AccountExpiresAt.Should().Be(accountExpires);
-            user.GetPropertyValue<DateTime?>(AccountExpires).Should().Be(accountExpires);
+            user.AccountExpires.Should().Be(accountExpires);
         }
 
         [Theory]
@@ -262,26 +261,26 @@ namespace Bstm.DirectoryServices.UnitTests
 
         [Theory]
         [LocalTestData]
-        public void LastLoginAtAtShouldBeRead(IUser user)
+        public void LastLoginShouldBeRead(IUser user)
         {
             // Fixture setup
-            var lastLoginAt = Fixture.Create<DateTime?>();
-            user.SetPropertyValue(LastLogon, lastLoginAt);
+            var lastLogin = Fixture.Create<DateTime?>();
+            user.SetPropertyValue(LastLogon, lastLogin);
 
             // Exercise system and verify outcome
-            user.LastLoginAt.Should().Be(lastLoginAt);
+            user.LastLogin.Should().Be(lastLogin);
         }
 
         [Theory]
         [LocalTestData]
-        public void LastFailedLoginAtAtShouldBeRead(IUser user)
+        public void LastFailedLoginAtShouldBeRead(IUser user)
         {
             // Fixture setup
-            var lastFailedLoginAt = Fixture.Create<DateTime?>();
-            user.SetPropertyValue(BadPasswordTime, lastFailedLoginAt);
+            var lastFailedLogin = Fixture.Create<DateTime?>();
+            user.SetPropertyValue(BadPasswordTime, lastFailedLogin);
 
             // Exercise system and verify outcome
-            user.LastFailedLoginAt.Should().Be(lastFailedLoginAt);
+            user.LastFailedLogin.Should().Be(lastFailedLogin);
         }
 
         private class LocalTestDataAttribute : AutoMoqDataAttribute
