@@ -37,6 +37,8 @@ namespace Bstm.DirectoryServices
             Provider = Guard.CheckNull(provider, nameof(provider));
         }
 
+        public static AdsPath RootDse { get; } = new AdsPath(new RootDseName());
+
         public AdsProvider Provider { get; }
 
         public string Server { get; }
@@ -235,6 +237,14 @@ namespace Bstm.DirectoryServices
             }
 
             throw new ArgumentOutOfRangeException(nameof(value));
+        }
+
+        private struct RootDseName : IAdsObjectName
+        {
+            public override string ToString()
+            {
+                return "RootDSE";
+            }
         }
     }
 }

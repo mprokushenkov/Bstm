@@ -190,5 +190,14 @@ namespace Bstm.DirectoryServices.UnitTests
             // Exercise system and verify outcome
             actual.Should().Be("LDAP://CN=John Doe,OU=Users,DC=domain,DC=com");
         }
+
+        [Fact]
+        public void RootDseShoulBeCorrectPath()
+        {
+            // Fixture setup
+
+            // Exercise system and verify outcome
+            AdsPath.RootDse.ToString().Should().Be("LDAP://RootDSE");
+        }
     }
 }
