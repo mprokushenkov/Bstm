@@ -91,6 +91,9 @@ namespace Bstm.DirectoryServices
         public static DirectoryProperty LastLogoff { get; } = new DirectoryProperty(
             "lastLogoff", DirectoryPropertySyntax.Interval, false, typeof(DateTime?), typeof(IADsLargeInteger));
 
+        public static DirectoryProperty Sn { get; } = new DirectoryProperty(
+            "sn", DirectoryPropertySyntax.UnicodeString, false, typeof(string), typeof(string));
+
         public DirectoryPropertySyntax Syntax { get; }
 
         public bool Multivalued { get; }

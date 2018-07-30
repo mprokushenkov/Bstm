@@ -295,6 +295,21 @@ namespace Bstm.DirectoryServices.UnitTests
             user.LastLogoff.Should().Be(lastLogoff);
         }
 
+        [Theory]
+        [LocalTestData]
+        public void LastNameShouldBeStored(IUser user)
+        {
+            // Fixture setup
+            var lastName = Fixture.Create<string>();
+
+            // Exercise system
+            user.LastName = lastName;
+
+            // Verify outcome
+            user.LastName.Should().Be(lastName);
+            user.GetPropertyValue<string>(Sn).Should().Be(lastName);
+        }
+
         private class LocalTestDataAttribute : AutoMoqDataAttribute
         {
             public LocalTestDataAttribute() : base(CreateFixture)

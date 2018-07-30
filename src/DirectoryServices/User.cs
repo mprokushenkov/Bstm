@@ -112,6 +112,12 @@ namespace Bstm.DirectoryServices
 
         public DateTime? LastLogoff => GetPropertyValue<DateTime?>(DirectoryProperty.LastLogoff);
 
+        public string LastName
+        {
+            get => GetPropertyValue<string>(Sn);
+            set => SetPropertyValue(Sn, value);
+        }
+
         public IMemberOfCollection MemberOf { get; }
     }
 }
