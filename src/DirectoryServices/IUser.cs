@@ -50,6 +50,9 @@ namespace Bstm.DirectoryServices
         [CanBeNull]
         DateTime? LastLogin { get; }
 
+        [CanBeNull]
+        DateTime? LastLogoff { get; }
+
         IMemberOfCollection MemberOf { get; }
     }
 }

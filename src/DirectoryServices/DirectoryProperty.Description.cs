@@ -88,6 +88,9 @@ namespace Bstm.DirectoryServices
         public static DirectoryProperty BadPasswordTime { get; } = new DirectoryProperty(
             "badPasswordTime", DirectoryPropertySyntax.Interval, false, typeof(DateTime?), typeof(IADsLargeInteger));
 
+        public static DirectoryProperty LastLogoff { get; } = new DirectoryProperty(
+            "lastLogoff", DirectoryPropertySyntax.Interval, false, typeof(DateTime?), typeof(IADsLargeInteger));
+
         public DirectoryPropertySyntax Syntax { get; }
 
         public bool Multivalued { get; }

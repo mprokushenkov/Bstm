@@ -261,6 +261,18 @@ namespace Bstm.DirectoryServices.UnitTests
 
         [Theory]
         [LocalTestData]
+        public void LastFailedLoginAtShouldBeRead(IUser user)
+        {
+            // Fixture setup
+            var lastFailedLogin = Fixture.Create<DateTime?>();
+            user.SetPropertyValue(BadPasswordTime, lastFailedLogin);
+
+            // Exercise system and verify outcome
+            user.LastFailedLogin.Should().Be(lastFailedLogin);
+        }
+
+        [Theory]
+        [LocalTestData]
         public void LastLoginShouldBeRead(IUser user)
         {
             // Fixture setup
@@ -273,14 +285,14 @@ namespace Bstm.DirectoryServices.UnitTests
 
         [Theory]
         [LocalTestData]
-        public void LastFailedLoginAtShouldBeRead(IUser user)
+        public void LastLogoffShouldBeRead(IUser user)
         {
             // Fixture setup
-            var lastFailedLogin = Fixture.Create<DateTime?>();
-            user.SetPropertyValue(BadPasswordTime, lastFailedLogin);
+            var lastLogoff = Fixture.Create<DateTime?>();
+            user.SetPropertyValue(LastLogoff, lastLogoff);
 
             // Exercise system and verify outcome
-            user.LastFailedLogin.Should().Be(lastFailedLogin);
+            user.LastLogoff.Should().Be(lastLogoff);
         }
 
         private class LocalTestDataAttribute : AutoMoqDataAttribute

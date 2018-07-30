@@ -110,6 +110,8 @@ namespace Bstm.DirectoryServices
 
         public DateTime? LastLogin => GetPropertyValue<DateTime?>(LastLogon);
 
+        public DateTime? LastLogoff => GetPropertyValue<DateTime?>(DirectoryProperty.LastLogoff);
+
         public IMemberOfCollection MemberOf { get; }
     }
 }
