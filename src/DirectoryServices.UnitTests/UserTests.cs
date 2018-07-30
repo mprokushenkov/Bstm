@@ -269,8 +269,7 @@ namespace Bstm.DirectoryServices.UnitTests
             user.SetPropertyValue(LastLogon, lastLoginAt);
 
             // Exercise system and verify outcome
-            var userLastLoginAt = user.LastLoginAt;
-            userLastLoginAt.Should().Be(lastLoginAt);
+            user.LastLoginAt.Should().Be(lastLoginAt);
         }
 
         [Theory]
@@ -282,8 +281,7 @@ namespace Bstm.DirectoryServices.UnitTests
             user.SetPropertyValue(BadPasswordTime, lastFailedLoginAt);
 
             // Exercise system and verify outcome
-            var userLastLoginAt = user.LastLoginAt;
-            userLastLoginAt.Should().Be(lastFailedLoginAt);
+            user.LastFailedLoginAt.Should().Be(lastFailedLoginAt);
         }
 
         private class LocalTestDataAttribute : AutoMoqDataAttribute
