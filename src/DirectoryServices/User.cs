@@ -106,10 +106,9 @@ namespace Bstm.DirectoryServices
 
         public bool AccountLocked => GetPropertyValue<long>(LockoutTime) > 0;
 
-        public DateTime? LastLoginAt
-        {
-            get { return GetPropertyValue<DateTime?>(LastLogon); }
-        }
+        public DateTime? LastLoginAt => GetPropertyValue<DateTime?>(LastLogon);
+
+        public DateTime? LastFailedLoginAt => GetPropertyValue<DateTime?>(BadPasswordTime);
 
         public IMemberOfCollection MemberOf { get; }
     }
