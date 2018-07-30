@@ -8,6 +8,9 @@ namespace Bstm.DirectoryServices
 {
     internal class User : DirectoryObject, IUser
     {
+        private bool managerInitialized;
+        private IUser manager;
+
         public User([NotNull] DirectoryEntry directoryEntry) : base(directoryEntry)
         {
             MemberOf = new MemberOfCollection(this);
@@ -122,6 +125,61 @@ namespace Bstm.DirectoryServices
         {
             get => GetPropertyValue<string>(ScriptPath);
             set => SetPropertyValue(ScriptPath, value);
+        }
+
+        public IUser Manager
+        {
+            get
+            {
+                if (!managerInitialized)
+                {
+                    InitialzeManager();
+                }
+
+                return manager;
+            }
+            set
+            {
+                if (value != null)
+                {
+                    SetPropertyValue(DirectoryProperty.Manager, value.DistinguishedName);
+                }
+                else
+                {
+                    Properties.RemoveValue(DirectoryProperty.Manager, manager.DistinguishedName);
+                }
+
+                manager = value;
+                managerInitialized = true;
+            }
+        }
+
+        private void InitialzeManager()
+        {
+            var managerPath = CreateManagerPath();
+
+            if (managerPath != null)
+            {
+                manager = new User(new DirectoryEntry(managerPath));
+            }
+
+            managerInitialized = true;
+        }
+
+        private AdsPath CreateManagerPath()
+        {
+            var dn = GetPropertyValue<DN>(DirectoryProperty.Manager);
+
+            if (dn == null)
+            {
+                return null;
+            }
+
+            var adsPath = Path.Server != null
+                ? new AdsPath(Path.Provider, Path.Server, dn)
+                : new AdsPath(Path.Provider, dn);
+
+            return adsPath;
         }
 
         public IMemberOfCollection MemberOf { get; }

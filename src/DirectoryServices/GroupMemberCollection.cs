@@ -18,14 +18,14 @@ namespace Bstm.DirectoryServices
         {
             Guard.CheckNull(directoryObject, nameof(directoryObject));
 
-            group.Properties.AppendValue(DirectoryProperty.Member, directoryObject.DistinguishedName.ToString());
+            group.Properties.AppendValue(DirectoryProperty.Member, directoryObject.DistinguishedName);
         }
 
         public void Remove(IDirectoryObject directoryObject)
         {
             Guard.CheckNull(directoryObject, nameof(directoryObject));
 
-            group.Properties.RemoveValue(DirectoryProperty.Member, directoryObject.DistinguishedName.ToString());
+            group.Properties.RemoveValue(DirectoryProperty.Member, directoryObject.DistinguishedName);
         }
     }
 }

@@ -9,6 +9,10 @@ namespace Bstm.DirectoryServices.UnitTests
 {
     public sealed class PropertyValueCollectionTests : TestBase
     {
+        private readonly DN john = DN.Parse("CN=John");
+        private readonly DN paul = DN.Parse("CN=John");
+        private readonly DN ringo = DN.Parse("CN=John");
+
         public PropertyValueCollectionTests(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
         {
         }
@@ -31,10 +35,10 @@ namespace Bstm.DirectoryServices.UnitTests
             // Fixture setup
 
             // Exercise system
-            collection.SetValue(DirectoryProperty.Member, "CN=John");
+            collection.SetValue(DirectoryProperty.Member, john);
 
             // Verify outcome
-            collection[DirectoryProperty.Member].Should().BeEquivalentTo(DN.Parse("CN=John"));
+            collection[DirectoryProperty.Member].Should().BeEquivalentTo(paul);
         }
 
         [Theory]
@@ -44,10 +48,10 @@ namespace Bstm.DirectoryServices.UnitTests
             // Fixture setup
 
             // Exercise system
-            collection.SetValues(DirectoryProperty.Member, new object[] {"CN=John", "CN=Paul"});
+            collection.SetValues(DirectoryProperty.Member, new object[] {john, paul });
 
             // Verify outcome
-            collection[DirectoryProperty.Member].Should().BeEquivalentTo(DN.Parse("CN=John"), DN.Parse("CN=Paul"));
+            collection[DirectoryProperty.Member].Should().BeEquivalentTo(john, paul);
         }
 
         [Theory]
@@ -57,7 +61,7 @@ namespace Bstm.DirectoryServices.UnitTests
             // Fixture setup
 
             // Exercise system
-            collection.SetValue(DirectoryProperty.Member, "John");
+            collection.SetValue(DirectoryProperty.Member, john);
             collection.Clear();
 
             // Verify outcome
@@ -71,10 +75,10 @@ namespace Bstm.DirectoryServices.UnitTests
             // Fixture setup
 
             // Exercise system
-            collection.SetValue(DirectoryProperty.Member, "CN=John");
+            collection.SetValue(DirectoryProperty.Member, john);
 
             // Verify outcome
-            collection.GetValue<DN>(DirectoryProperty.Member).Should().Be(DN.Parse("CN=John"));
+            collection.GetValue<DN>(DirectoryProperty.Member).Should().Be(DN.Parse(john));
         }
 
         [Theory]
@@ -84,11 +88,11 @@ namespace Bstm.DirectoryServices.UnitTests
             // Fixture setup
 
             // Exercise system
-            collection.SetValues(DirectoryProperty.Member, new object[] {"CN=John", "CN=Paul"});
+            collection.SetValues(DirectoryProperty.Member, new object[] {john, paul});
 
             // Verify outcome
             collection.GetValues<DN>(DirectoryProperty.Member)
-                .Should().BeEquivalentTo(DN.Parse("CN=John"), DN.Parse("CN=Paul"));
+                .Should().BeEquivalentTo(john, paul);
         }
 
         [Theory]
@@ -96,14 +100,14 @@ namespace Bstm.DirectoryServices.UnitTests
         public void ExistingPropertyValuesShouldBeRewritten(PropertyValueCollection collection)
         {
             // Fixture setup
-            collection.SetValues(DirectoryProperty.Member, new object[] {"CN=John", "CN=Paul"});
+            collection.SetValues(DirectoryProperty.Member, new object[] {john, paul});
 
             // Exercise system
-            collection.SetValues(DirectoryProperty.Member, new object[] {"CN=John", "CN=Paul", "CN=Ringo"});
+            collection.SetValues(DirectoryProperty.Member, new object[] {john, paul, ringo});
 
             // Verify outcome
             collection.GetValues<DN>(DirectoryProperty.Member)
-                .Should().BeEquivalentTo(DN.Parse("CN=John"), DN.Parse("CN=Paul"), DN.Parse("CN=Ringo"));
+                .Should().BeEquivalentTo(john, paul, ringo);
         }
 
         [Theory]
@@ -111,10 +115,10 @@ namespace Bstm.DirectoryServices.UnitTests
         public void OnePropertyValueShouldBeRemoved(PropertyValueCollection collection)
         {
             // Fixture setup
-            collection.SetValue(DirectoryProperty.Member, "CN=John");
+            collection.SetValue(DirectoryProperty.Member, john);
 
             // Exercise system
-            collection.RemoveValue(DirectoryProperty.Member, "CN=John");
+            collection.RemoveValue(DirectoryProperty.Member, paul);
 
             // Verify outcome
             collection[DirectoryProperty.Member].Should().HaveCount(0);
@@ -125,7 +129,7 @@ namespace Bstm.DirectoryServices.UnitTests
         public void AllPropertyValueShouldBeRemoved(PropertyValueCollection collection)
         {
             // Fixture setup
-            collection.SetValue(DirectoryProperty.Member, new object[] {"CN=John", "CN=Paul"});
+            collection.SetValue(DirectoryProperty.Member, new object[] {john, paul});
 
             // Exercise system
             collection.RemoveValues(DirectoryProperty.Member);
@@ -139,14 +143,14 @@ namespace Bstm.DirectoryServices.UnitTests
         public void OnePropertyValueShouldBeAppended(PropertyValueCollection collection)
         {
             // Fixture setup
-            collection.SetValue(DirectoryProperty.Member, "CN=John");
+            collection.SetValue(DirectoryProperty.Member, DN.Parse(john));
 
             // Exercise system
-            collection.AppendValue(DirectoryProperty.Member, "CN=Paul");
+            collection.AppendValue(DirectoryProperty.Member, DN.Parse(paul));
 
             // Verify outcome
             collection.GetValues<DN>(DirectoryProperty.Member)
-                .Should().BeEquivalentTo(DN.Parse("CN=John"), DN.Parse("CN=Paul"));
+                .Should().BeEquivalentTo(DN.Parse(john), DN.Parse(paul));
         }
 
         [Theory]
@@ -154,14 +158,14 @@ namespace Bstm.DirectoryServices.UnitTests
         public void ManyPropertyValuesShouldBeAppended(PropertyValueCollection collection)
         {
             // Fixture setup
-            collection.SetValue(DirectoryProperty.Member, "CN=John");
+            collection.SetValue(DirectoryProperty.Member, john);
 
             // Exercise system
-            collection.AppendValues(DirectoryProperty.Member, new object[] {"CN=Paul", "CN=Ringo"});
+            collection.AppendValues(DirectoryProperty.Member, new object[] {paul, ringo});
 
             // Verify outcome
             collection.GetValues<DN>(DirectoryProperty.Member)
-                .Should().BeEquivalentTo(DN.Parse("CN=John"), DN.Parse("CN=Paul"), DN.Parse("CN=Ringo"));
+                .Should().BeEquivalentTo(john, paul, ringo);
         }
     }
 }

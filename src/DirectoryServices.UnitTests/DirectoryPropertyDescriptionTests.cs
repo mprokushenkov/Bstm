@@ -65,6 +65,7 @@ namespace Bstm.DirectoryServices.UnitTests
             CheckPropertyCorrectDefined(LastLogoff, "lastLogoff", Interval, false, typeof(DateTime?), typeof(IADsLargeInteger));
             CheckPropertyCorrectDefined(Sn, "sn", UnicodeString, false, typeof(string), typeof(string));
             CheckPropertyCorrectDefined(ScriptPath, "scriptPath", UnicodeString, false, typeof(string), typeof(string));
+            CheckPropertyCorrectDefined(Manager, "manager", DNString, false, typeof(DN), typeof(string));
         }
 
         private static void CheckPropertyCorrectDefined(

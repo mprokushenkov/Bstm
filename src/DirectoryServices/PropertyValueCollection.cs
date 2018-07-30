@@ -81,10 +81,8 @@ namespace Bstm.DirectoryServices
             Guard.CheckNull(directoryProperty, nameof(directoryProperty));
             Guard.CheckNull(values, nameof(values));
 
-            var convertedValues = values.Select(directoryProperty.ConvertToDirectoryValue).ToArray();
-
             RemoveValues(directoryProperty);
-            UpdateValuesInStore(directoryProperty, convertedValues);
+            UpdateValuesInStore(directoryProperty, values);
             RemoveFromRemovedProperties(directoryProperty);
         }
 
@@ -148,6 +146,11 @@ namespace Bstm.DirectoryServices
             properties.ForEach(p => GetValue<object>(p));
         }
 
+        internal bool ValueHasBeenRemoved(DirectoryProperty property)
+        {
+            return removedProperties.Any(p => p == property);
+        }
+
         internal void Clear()
         {
             store.Clear();
@@ -186,12 +189,13 @@ namespace Bstm.DirectoryServices
             return result;
         }
 
-        private void UpdateValuesInStore(string propertyName, object[] values)
+        private void UpdateValuesInStore(DirectoryProperty directoryProperty, object[] values)
         {
-            Guard.CheckNull(propertyName, nameof(propertyName));
+            Guard.CheckNull(directoryProperty, nameof(directoryProperty));
             Guard.CheckNull(values, nameof(values));
 
-            store.AddRange(values.Select(v => (propertyName, v)));
+            var convertedValues = values.Select(directoryProperty.ConvertToDirectoryValue).ToArray();
+            store.AddRange(values.Select(v => (directoryProperty.ToString(), v)));
         }
 
         private void UpdateDirectoryEntry(string propertyName, object[] values)
@@ -217,13 +221,13 @@ namespace Bstm.DirectoryServices
             switch (values.Length)
             {
                 case 0:
-            directoryEntry.Properties[propertyName].Clear();
+                    directoryEntry.Properties[propertyName].Clear();
                     return;
                 case 1:
-            directoryEntry.Properties[propertyName].Value = values[0];
+                    directoryEntry.Properties[propertyName].Value = values[0];
                     break;
                 default:
-            directoryEntry.Properties[propertyName].Value = values;
+                    directoryEntry.Properties[propertyName].Value = values;
                     break;
             }
 

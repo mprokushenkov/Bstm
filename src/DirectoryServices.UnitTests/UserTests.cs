@@ -325,6 +325,53 @@ namespace Bstm.DirectoryServices.UnitTests
             user.GetPropertyValue<string>(ScriptPath).Should().Be(loginScript);
         }
 
+        [Theory]
+        [LocalTestData]
+        public void ManagerShouldBeRead(IUser user)
+        {
+            // Fixture setup
+            var dn = DN.Parse("CN=manager,OU=users,DC=domain,DC=com");
+            user.SetPropertyValue(Manager, dn);
+
+            // Exercise system and verify outcome
+            user.Manager.Should().NotBeNull();
+            // ReSharper disable once PossibleNullReferenceException
+            user.Manager.Path.Should().Be(AdsPath.Parse("LDAP://CN=manager,OU=users,DC=domain,DC=com"));
+        }
+
+        [Theory]
+        [LocalTestData]
+        public void ManagerShouldBeChanged(IUser user)
+        {
+            // Fixture setup
+            var newManager = Fixture.Create<IUser>();
+            newManager.Setup(m => m.DistinguishedName).Returns(DN.Parse("CN=manager,OU=users,DC=domain,DC=com"));
+
+            // Exercise system
+            user.Manager = newManager;
+
+            // Verify outcome
+            user.Manager.Should().Be(newManager);
+            user.GetPropertyValue<DN>(Manager).Should().Be(newManager.DistinguishedName);
+        }
+
+        [Theory]
+        [LocalTestData]
+        public void ManagerShouldBeRemoved(IUser user)
+        {
+            // Fixture setup
+            var manager = Fixture.Create<IUser>();
+            manager.Setup(m => m.DistinguishedName).Returns(DN.Parse("CN=manager,OU=users,DC=domain,DC=com"));
+            user.Manager = manager;
+
+            // Exercise system
+            user.Manager = null;
+
+            // Verify outcome
+            user.Manager.Should().BeNull();
+            user.Properties.ValueHasBeenRemoved(Manager).Should().BeTrue();
+        }
+
         private class LocalTestDataAttribute : AutoMoqDataAttribute
         {
             public LocalTestDataAttribute() : base(CreateFixture)
@@ -334,8 +381,15 @@ namespace Bstm.DirectoryServices.UnitTests
             private new static IFixture CreateFixture()
             {
                 var fixture = AutoMoqDataAttribute.CreateFixture();
-                var user = fixture.Build<User>().Without(u => u.AccountDisabled).Create();
-                fixture.Inject((IUser) user);
+
+                var user = fixture.Build<User>()
+                    .Without(u => u.AccountDisabled)
+                    .Without(u => u.Manager)
+                    .Create();
+
+                user.DirectoryEntry.Path = AdsPath.Parse("LDAP://CN=John Doe,OU=users,DC=domain,DC=com");
+
+                fixture.Inject((IUser)user);
 
                 return fixture;
             }

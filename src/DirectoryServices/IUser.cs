@@ -59,6 +59,9 @@ namespace Bstm.DirectoryServices
         [CanBeNull]
         string LoginScript { get; set; }
 
+        [CanBeNull]
+        IUser Manager { get; set; }
+
         IMemberOfCollection MemberOf { get; }
     }
 }

@@ -97,6 +97,9 @@ namespace Bstm.DirectoryServices
         public static DirectoryProperty ScriptPath { get; } = new DirectoryProperty(
             "scriptPath", DirectoryPropertySyntax.UnicodeString, false, typeof(string), typeof(string));
 
+        public static DirectoryProperty Manager { get; } = new DirectoryProperty(
+            "manager", DirectoryPropertySyntax.DNString, false, typeof(DN), typeof(string));
+
         public DirectoryPropertySyntax Syntax { get; }
 
         public bool Multivalued { get; }
