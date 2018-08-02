@@ -64,6 +64,9 @@ namespace Bstm.DirectoryServices
 
         long? MaxStorage { get; set; }
 
+        [CanBeNull]
+        string NamePrefix { get; set; }
+
         IMemberOfCollection MemberOf { get; }
     }
 }

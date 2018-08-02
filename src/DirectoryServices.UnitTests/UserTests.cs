@@ -387,6 +387,21 @@ namespace Bstm.DirectoryServices.UnitTests
             user.GetPropertyValue<long>(MaxStorage).Should().Be(maxStorage);
         }
 
+        [Theory]
+        [LocalTestData]
+        public void NamePrefixShouldBeStored(IUser user)
+        {
+            // Fixture setup
+            var namePrefix = Fixture.Create<string>();
+
+            // Exercise system
+            user.NamePrefix = namePrefix;
+
+            // Verify outcome
+            user.NamePrefix.Should().Be(namePrefix);
+            user.GetPropertyValue<string>(PersonalTitle).Should().Be(namePrefix);
+        }
+
         private class LocalTestDataAttribute : AutoMoqDataAttribute
         {
             public LocalTestDataAttribute() : base(CreateFixture)

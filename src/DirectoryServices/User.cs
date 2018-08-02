@@ -160,6 +160,12 @@ namespace Bstm.DirectoryServices
             set => SetPropertyValue(DirectoryProperty.MaxStorage, value);
         }
 
+        public string NamePrefix
+        {
+            get => GetPropertyValue<string>(PersonalTitle);
+            set => SetPropertyValue(PersonalTitle, value);
+        }
+
         private void InitialzeManager()
         {
             var managerPath = CreateManagerPath();

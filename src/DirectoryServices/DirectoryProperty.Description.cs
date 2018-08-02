@@ -103,6 +103,9 @@ namespace Bstm.DirectoryServices
         public static DirectoryProperty MaxStorage { get; } = new DirectoryProperty(
             "maxStorage", DirectoryPropertySyntax.Interval, false, typeof(long?), typeof(IADsLargeInteger));
 
+        public static DirectoryProperty PersonalTitle { get; } = new DirectoryProperty(
+            "personalTitle", DirectoryPropertySyntax.UnicodeString, false, typeof(string), typeof(string));
+
         public DirectoryPropertySyntax Syntax { get; }
 
         public bool Multivalued { get; }
