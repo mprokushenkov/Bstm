@@ -80,7 +80,7 @@ namespace Bstm.DirectoryServices
             new DirectoryProperty("badPwdCount", DirectoryPropertySyntax.Enumeration, false, typeof(int), typeof(int));
 
         public static DirectoryProperty LockoutTime { get; } = new DirectoryProperty(
-            "lockoutTime",DirectoryPropertySyntax.Interval, false, typeof(long), typeof(IADsLargeInteger));
+            "lockoutTime",DirectoryPropertySyntax.Interval, false, typeof(long?), typeof(IADsLargeInteger));
 
         public static DirectoryProperty LastLogon { get; } = new DirectoryProperty(
             "lastLogon", DirectoryPropertySyntax.Interval, false, typeof(DateTime?), typeof(IADsLargeInteger));
@@ -101,7 +101,7 @@ namespace Bstm.DirectoryServices
             "manager", DirectoryPropertySyntax.DNString, false, typeof(DN), typeof(string));
 
         public static DirectoryProperty MaxStorage { get; } = new DirectoryProperty(
-            "maxStorage", DirectoryPropertySyntax.Interval, false, typeof(long), typeof(IADsLargeInteger));
+            "maxStorage", DirectoryPropertySyntax.Interval, false, typeof(long?), typeof(IADsLargeInteger));
 
         public DirectoryPropertySyntax Syntax { get; }
 

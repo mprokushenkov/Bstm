@@ -12,7 +12,7 @@ namespace Bstm.DirectoryServices.UnitTests
 {
     public sealed class DirectoryPropertyConversionTests : TestBase
     {
-        const long filetime = 131771579408071845;
+        private const long filetime = 131771579408071845;
 
         public DirectoryPropertyConversionTests(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
         {
@@ -284,7 +284,7 @@ namespace Bstm.DirectoryServices.UnitTests
             var number = DateTime.Now.Ticks;
 
             var properties = Enumeration.GetAll<DirectoryProperty>()
-                .Where(p => p.NotionalType == typeof(long)
+                .Where(p => p.NotionalType == typeof(long?)
                             && p.DirectoryType.IsEquivalentTo(typeof(IADsLargeInteger)));
 
             // Exercise system
@@ -306,7 +306,7 @@ namespace Bstm.DirectoryServices.UnitTests
             var number = DateTime.Now.Ticks;
 
             var properties = Enumeration.GetAll<DirectoryProperty>()
-                .Where(p => p.NotionalType == typeof(long)
+                .Where(p => p.NotionalType == typeof(long?)
                             && p.DirectoryType.IsEquivalentTo(typeof(IADsLargeInteger)));
 
             // Exercise system

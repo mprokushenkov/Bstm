@@ -59,14 +59,14 @@ namespace Bstm.DirectoryServices.UnitTests
             CheckPropertyCorrectDefined(UserAccountControl, "userAccountControl", Enumeration, false, typeof(ADS_USER_FLAG), typeof(int));
             CheckPropertyCorrectDefined(AccountExpires, "accountExpires", Interval, false, typeof(DateTime?), typeof(IADsLargeInteger));
             CheckPropertyCorrectDefined(BadPwdCount, "badPwdCount", Enumeration, false, typeof(int), typeof(int));
-            CheckPropertyCorrectDefined(LockoutTime, "lockoutTime", Interval, false, typeof(long), typeof(IADsLargeInteger));
+            CheckPropertyCorrectDefined(LockoutTime, "lockoutTime", Interval, false, typeof(long?), typeof(IADsLargeInteger));
             CheckPropertyCorrectDefined(LastLogon, "lastLogon", Interval, false, typeof(DateTime?), typeof(IADsLargeInteger));
             CheckPropertyCorrectDefined(BadPasswordTime, "badPasswordTime", Interval, false, typeof(DateTime?), typeof(IADsLargeInteger));
             CheckPropertyCorrectDefined(LastLogoff, "lastLogoff", Interval, false, typeof(DateTime?), typeof(IADsLargeInteger));
             CheckPropertyCorrectDefined(Sn, "sn", UnicodeString, false, typeof(string), typeof(string));
             CheckPropertyCorrectDefined(ScriptPath, "scriptPath", UnicodeString, false, typeof(string), typeof(string));
             CheckPropertyCorrectDefined(Manager, "manager", DNString, false, typeof(DN), typeof(string));
-            CheckPropertyCorrectDefined(MaxStorage, "maxStorage", Interval, false, typeof(long), typeof(IADsLargeInteger));
+            CheckPropertyCorrectDefined(MaxStorage, "maxStorage", Interval, false, typeof(long?), typeof(IADsLargeInteger));
         }
 
         private static void CheckPropertyCorrectDefined(

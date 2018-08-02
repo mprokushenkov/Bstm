@@ -107,7 +107,7 @@ namespace Bstm.DirectoryServices
             set => SetPropertyValue(WwwHomePage, value);
         }
 
-        public bool AccountLocked => GetPropertyValue<long>(LockoutTime) > 0;
+        public bool AccountLocked => GetPropertyValue<long?>(LockoutTime) > 0;
 
         public DateTime? LastFailedLogin => GetPropertyValue<DateTime?>(BadPasswordTime);
 
@@ -154,9 +154,9 @@ namespace Bstm.DirectoryServices
             }
         }
 
-        public long MaxStorage
+        public long? MaxStorage
         {
-            get => GetPropertyValue<long>(DirectoryProperty.MaxStorage);
+            get => GetPropertyValue<long?>(DirectoryProperty.MaxStorage);
             set => SetPropertyValue(DirectoryProperty.MaxStorage, value);
         }
 
