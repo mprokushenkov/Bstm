@@ -67,6 +67,9 @@ namespace Bstm.DirectoryServices
         [CanBeNull]
         string NamePrefix { get; set; }
 
+        [CanBeNull]
+        string NameSuffix { get; set; }
+
         IMemberOfCollection MemberOf { get; }
     }
 }

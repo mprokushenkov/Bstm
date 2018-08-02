@@ -166,6 +166,12 @@ namespace Bstm.DirectoryServices
             set => SetPropertyValue(PersonalTitle, value);
         }
 
+        public string NameSuffix
+        {
+            get => GetPropertyValue<string>(GenerationQualifier);
+            set => SetPropertyValue(GenerationQualifier, value);
+        }
+
         private void InitialzeManager()
         {
             var managerPath = CreateManagerPath();

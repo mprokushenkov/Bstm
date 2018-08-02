@@ -402,6 +402,21 @@ namespace Bstm.DirectoryServices.UnitTests
             user.GetPropertyValue<string>(PersonalTitle).Should().Be(namePrefix);
         }
 
+        [Theory]
+        [LocalTestData]
+        public void NameSuffixShouldBeStored(IUser user)
+        {
+            // Fixture setup
+            var nameSuffix = Fixture.Create<string>();
+
+            // Exercise system
+            user.NameSuffix = nameSuffix;
+
+            // Verify outcome
+            user.NameSuffix.Should().Be(nameSuffix);
+            user.GetPropertyValue<string>(GenerationQualifier).Should().Be(nameSuffix);
+        }
+
         private class LocalTestDataAttribute : AutoMoqDataAttribute
         {
             public LocalTestDataAttribute() : base(CreateFixture)
