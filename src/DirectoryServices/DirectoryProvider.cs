@@ -103,12 +103,12 @@ namespace Bstm.DirectoryServices
 
         public virtual IEnumerable<IDirectoryObject> FindAll(
             [NotNull] AdsPath searchRootAdsPath,
-            [NotNull] DirectoryProperty asqProperty,
-            [NotNull] SearchFilter searchFilter)
+            [NotNull] SearchFilter searchFilter,
+            [NotNull] DirectoryProperty asqProperty)
         {
             Guard.CheckNull(searchRootAdsPath, nameof(searchRootAdsPath));
-            Guard.CheckNull(asqProperty, nameof(asqProperty));
             Guard.CheckNull(searchFilter, nameof(searchFilter));
+            Guard.CheckNull(asqProperty, nameof(asqProperty));
 
             if (asqProperty.Syntax != DirectoryPropertySyntax.DNString)
             {
