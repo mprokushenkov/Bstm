@@ -206,12 +206,17 @@ namespace Bstm.DirectoryServices.UnitTests
         }
 
         [Fact]
-        public void DateTimeFromLargeIntegerShouldReturnNullForZeroInteger()
+        public void DateTimeFromLargeIntegerShouldReturnNullIfIntegerNoSet()
         {
             // Fixture setup
+            var integer = new LargeInteger
+            {
+                HighPart = int.MaxValue,
+                LowPart = -1
+            };
 
             // Exercise system
-            var actual = DateTimeFromLargeInteger(new LargeInteger());
+            var actual = DateTimeFromLargeInteger(integer);
 
             // Verify outcome
             actual.Should().BeNull();

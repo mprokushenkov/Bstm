@@ -87,7 +87,7 @@ namespace Bstm.DirectoryServices
             try
             {
                 var integer = Int64FromLargeInteger(largeInteger);
-                return integer != 0 ? DateTime.FromFileTimeUtc(integer) : default(DateTime?);
+                return integer != null ? DateTime.FromFileTimeUtc(integer.Value) : default(DateTime?);
             }
             catch (ArgumentOutOfRangeException)
             {
@@ -109,10 +109,11 @@ namespace Bstm.DirectoryServices
             }
         }
 
-        internal static long Int64FromLargeInteger(object o)
+        internal static long? Int64FromLargeInteger(object o)
         {
             var largeInt = (IADsLargeInteger) o;
-            return ((long) largeInt.HighPart << 32) | (uint) largeInt.LowPart;
+            var isNotSet = largeInt.LowPart == -1 && largeInt.HighPart == int.MaxValue;
+            return isNotSet ? default(long?) : ((long) largeInt.HighPart << 32) | (uint) largeInt.LowPart;
         }
 
         internal static IADsLargeInteger Int64ToLargeInteger(long val)
