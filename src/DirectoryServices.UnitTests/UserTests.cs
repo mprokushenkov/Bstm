@@ -372,6 +372,21 @@ namespace Bstm.DirectoryServices.UnitTests
             user.Properties.ValueHasBeenRemoved(Manager).Should().BeTrue();
         }
 
+        [Theory]
+        [LocalTestData]
+        public void MaxStorageShouldBeStored(IUser user)
+        {
+            // Fixture setup
+            var maxStorage = Fixture.Create<long>();
+
+            // Exercise system
+            user.MaxStorage = maxStorage;
+
+            // Verify outcome
+            user.MaxStorage.Should().Be(maxStorage);
+            user.GetPropertyValue<long>(MaxStorage).Should().Be(maxStorage);
+        }
+
         private class LocalTestDataAttribute : AutoMoqDataAttribute
         {
             public LocalTestDataAttribute() : base(CreateFixture)

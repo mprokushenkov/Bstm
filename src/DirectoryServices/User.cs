@@ -154,6 +154,12 @@ namespace Bstm.DirectoryServices
             }
         }
 
+        public long MaxStorage
+        {
+            get => GetPropertyValue<long>(DirectoryProperty.MaxStorage);
+            set => SetPropertyValue(DirectoryProperty.MaxStorage, value);
+        }
+
         private void InitialzeManager()
         {
             var managerPath = CreateManagerPath();

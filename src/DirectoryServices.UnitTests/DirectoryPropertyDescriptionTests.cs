@@ -66,6 +66,7 @@ namespace Bstm.DirectoryServices.UnitTests
             CheckPropertyCorrectDefined(Sn, "sn", UnicodeString, false, typeof(string), typeof(string));
             CheckPropertyCorrectDefined(ScriptPath, "scriptPath", UnicodeString, false, typeof(string), typeof(string));
             CheckPropertyCorrectDefined(Manager, "manager", DNString, false, typeof(DN), typeof(string));
+            CheckPropertyCorrectDefined(MaxStorage, "maxStorage", Interval, false, typeof(long), typeof(IADsLargeInteger));
         }
 
         private static void CheckPropertyCorrectDefined(

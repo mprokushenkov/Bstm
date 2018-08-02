@@ -62,6 +62,8 @@ namespace Bstm.DirectoryServices
         [CanBeNull]
         IUser Manager { get; set; }
 
+        long MaxStorage { get; set; }
+
         IMemberOfCollection MemberOf { get; }
     }
 }

@@ -100,6 +100,9 @@ namespace Bstm.DirectoryServices
         public static DirectoryProperty Manager { get; } = new DirectoryProperty(
             "manager", DirectoryPropertySyntax.DNString, false, typeof(DN), typeof(string));
 
+        public static DirectoryProperty MaxStorage { get; } = new DirectoryProperty(
+            "maxStorage", DirectoryPropertySyntax.Interval, false, typeof(long), typeof(IADsLargeInteger));
+
         public DirectoryPropertySyntax Syntax { get; }
 
         public bool Multivalued { get; }
