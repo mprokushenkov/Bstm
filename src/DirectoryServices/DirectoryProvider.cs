@@ -126,7 +126,7 @@ namespace Bstm.DirectoryServices
                 var searcher = CreateDirectorySearcher(searchFilter, root);
                 searcher.SearchScope = SearchScope.Base;
                 searcher.AttributeScopeQuery = asqProperty;
-                searcher.ReferralChasing = ReferralChasingOption.Subordinate;
+                searcher.ReferralChasing = ReferralChasingOption.All;
                 searcher.PropertyNamesOnly = true;
 
                 var results = FindAllInternal(searcher);
