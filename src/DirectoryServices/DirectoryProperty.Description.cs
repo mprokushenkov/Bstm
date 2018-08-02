@@ -109,6 +109,9 @@ namespace Bstm.DirectoryServices
         public static DirectoryProperty GenerationQualifier { get; } = new DirectoryProperty(
             "generationQualifier", DirectoryPropertySyntax.UnicodeString, false, typeof(string), typeof(string));
 
+        public static DirectoryProperty PhysicalDeliveryOfficeName { get; } = new DirectoryProperty(
+            "physicalDeliveryOfficeName", DirectoryPropertySyntax.UnicodeString, false, typeof(string), typeof(string));
+
         public DirectoryPropertySyntax Syntax { get; }
 
         public bool Multivalued { get; }

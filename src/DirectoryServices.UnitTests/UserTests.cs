@@ -417,6 +417,21 @@ namespace Bstm.DirectoryServices.UnitTests
             user.GetPropertyValue<string>(GenerationQualifier).Should().Be(nameSuffix);
         }
 
+        [Theory]
+        [LocalTestData]
+        public void OfficeLocationShouldBeStored(IUser user)
+        {
+            // Fixture setup
+            var officeLocation = Fixture.Create<string>();
+
+            // Exercise system
+            user.OficeLocation = officeLocation;
+
+            // Verify outcome
+            user.OficeLocation.Should().Be(officeLocation);
+            user.GetPropertyValue<string>(PhysicalDeliveryOfficeName).Should().Be(officeLocation);
+        }
+
         private class LocalTestDataAttribute : AutoMoqDataAttribute
         {
             public LocalTestDataAttribute() : base(CreateFixture)
