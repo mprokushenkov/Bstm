@@ -73,6 +73,9 @@ namespace Bstm.DirectoryServices
         [CanBeNull]
         string OficeLocation { get; set; }
 
+        [CanBeNull]
+        string OtherName { get; set; }
+
         IMemberOfCollection MemberOf { get; }
     }
 }

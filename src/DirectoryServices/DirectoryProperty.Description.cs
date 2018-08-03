@@ -112,6 +112,9 @@ namespace Bstm.DirectoryServices
         public static DirectoryProperty PhysicalDeliveryOfficeName { get; } = new DirectoryProperty(
             "physicalDeliveryOfficeName", DirectoryPropertySyntax.UnicodeString, false, typeof(string), typeof(string));
 
+        public static DirectoryProperty MiddleName { get; } = new DirectoryProperty(
+            "middleName", DirectoryPropertySyntax.UnicodeString, false, typeof(string), typeof(string));
+
         public DirectoryPropertySyntax Syntax { get; }
 
         public bool Multivalued { get; }

@@ -178,6 +178,12 @@ namespace Bstm.DirectoryServices
             set => SetPropertyValue(PhysicalDeliveryOfficeName, value);
         }
 
+        public string OtherName
+        {
+            get => GetPropertyValue<string>(MiddleName);
+            set => SetPropertyValue(MiddleName, value);
+        }
+
         private void InitialzeManager()
         {
             var managerPath = CreateManagerPath();
