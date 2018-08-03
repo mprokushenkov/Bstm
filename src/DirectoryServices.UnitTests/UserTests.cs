@@ -504,6 +504,21 @@ namespace Bstm.DirectoryServices.UnitTests
                 .BeFalse();
         }
 
+        [Theory]
+        [LocalTestData]
+        public void PostalAddressShouldBeStored(IUser user)
+        {
+            // Fixture setup
+            var postalAddress = Fixture.Create<string>();
+
+            // Exercise system
+            user.PostalAddress = postalAddress;
+
+            // Verify outcome
+            user.PostalAddress.Should().Be(postalAddress);
+            user.GetPropertyValue<string>(DirectoryProperty.PostalAddress).Should().Be(postalAddress);
+        }
+
         private class LocalTestDataAttribute : AutoMoqDataAttribute
         {
             public LocalTestDataAttribute() : base(CreateFixture)

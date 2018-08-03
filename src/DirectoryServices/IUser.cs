@@ -81,6 +81,8 @@ namespace Bstm.DirectoryServices
 
         bool PasswordRequired { get; set; }
 
+        string PostalAddress { get; set; }
+
         IMemberOfCollection MemberOf { get; }
     }
 }

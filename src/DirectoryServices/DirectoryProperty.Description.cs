@@ -118,6 +118,9 @@ namespace Bstm.DirectoryServices
         public static DirectoryProperty PwdLastSet { get; } = new DirectoryProperty(
             "pwdLastSet", DirectoryPropertySyntax.Interval, false, typeof(DateTime?), typeof(IADsLargeInteger));
 
+        public static DirectoryProperty PostalAddress { get; } = new DirectoryProperty(
+            "postalAddress", DirectoryPropertySyntax.UnicodeString, false, typeof(string), typeof(string));
+
         public DirectoryPropertySyntax Syntax { get; }
 
         public bool Multivalued { get; }

@@ -72,6 +72,7 @@ namespace Bstm.DirectoryServices.UnitTests
             CheckPropertyCorrectDefined(PhysicalDeliveryOfficeName, "physicalDeliveryOfficeName", UnicodeString, false, typeof(string), typeof(string));
             CheckPropertyCorrectDefined(MiddleName, "middleName", UnicodeString, false, typeof(string), typeof(string));
             CheckPropertyCorrectDefined(PwdLastSet, "pwdLastSet", Interval, false, typeof(DateTime?), typeof(IADsLargeInteger));
+            CheckPropertyCorrectDefined(DirectoryProperty.PostalAddress, "postalAddress", UnicodeString, false, typeof(string), typeof(string));
         }
 
         private static void CheckPropertyCorrectDefined(

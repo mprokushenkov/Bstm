@@ -198,6 +198,12 @@ namespace Bstm.DirectoryServices
             }
         }
 
+        public string PostalAddress
+        {
+            get => GetPropertyValue<string>(DirectoryProperty.PostalAddress);
+            set => SetPropertyValue(DirectoryProperty.PostalAddress, value);
+        }
+
         private void InitialzeManager()
         {
             var managerPath = CreateManagerPath();
