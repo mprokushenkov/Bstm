@@ -459,6 +459,51 @@ namespace Bstm.DirectoryServices.UnitTests
             user.PasswordLastChanged.Should().Be(passwordLastChanged);
         }
 
+        [Theory]
+        [LocalTestData]
+        public void PasswordRequiredShoulBeCorrectRead(IUser user)
+        {
+            // Fixture setup
+            user.SetPropertyValue(UserAccountControl, ADS_USER_FLAG.ADS_UF_PASSWD_NOTREQD);
+
+            // Exercise system and verify outcome
+            user.PasswordRequired.Should().BeTrue();
+        }
+
+        [Theory]
+        [LocalTestData]
+        public void PasswordRequiredShoulBeCorrectWritten(IUser user)
+        {
+            // Fixture setup
+            user.SetPropertyValue(UserAccountControl, ADS_USER_FLAG.ADS_UF_NORMAL_ACCOUNT);
+
+            // Exercise system
+            user.PasswordRequired = true;
+
+            // Verify outcome
+            user.GetPropertyValue<ADS_USER_FLAG>(UserAccountControl)
+                .HasFlag(ADS_USER_FLAG.ADS_UF_PASSWD_NOTREQD)
+                .Should()
+                .BeTrue();
+        }
+
+        [Theory]
+        [LocalTestData]
+        public void PasswordRequiredShoulBeCorrectCleared(IUser user)
+        {
+            // Fixture setup
+            user.SetPropertyValue(UserAccountControl, ADS_USER_FLAG.ADS_UF_PASSWD_NOTREQD);
+
+            // Exercise system
+            user.PasswordRequired = false;
+
+            // Verify outcome
+            user.GetPropertyValue<ADS_USER_FLAG>(UserAccountControl)
+                .HasFlag(ADS_USER_FLAG.ADS_UF_PASSWD_NOTREQD)
+                .Should()
+                .BeFalse();
+        }
+
         private class LocalTestDataAttribute : AutoMoqDataAttribute
         {
             public LocalTestDataAttribute() : base(CreateFixture)
@@ -471,6 +516,7 @@ namespace Bstm.DirectoryServices.UnitTests
 
                 var user = fixture.Build<User>()
                     .Without(u => u.AccountDisabled)
+                    .Without(u => u.PasswordRequired)
                     .Without(u => u.Manager)
                     .Create();
 

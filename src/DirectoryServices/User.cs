@@ -3,6 +3,7 @@ using System.DirectoryServices;
 using ActiveDs;
 using JetBrains.Annotations;
 using static Bstm.DirectoryServices.DirectoryProperty;
+using static ActiveDs.ADS_USER_FLAG;
 
 namespace Bstm.DirectoryServices
 {
@@ -18,24 +19,18 @@ namespace Bstm.DirectoryServices
 
         public bool AccountDisabled
         {
-            get => GetPropertyValue<ADS_USER_FLAG>(UserAccountControl).HasFlag(ADS_USER_FLAG.ADS_UF_ACCOUNTDISABLE);
+            get => HasUserFlag(ADS_UF_ACCOUNTDISABLE);
 
             set
             {
-                // ReSharper disable BitwiseOperatorOnEnumWithoutFlags
-
-                var currentValue = GetPropertyValue<ADS_USER_FLAG>(UserAccountControl);
-
                 if (value)
                 {
-                    SetPropertyValue(UserAccountControl, currentValue | ADS_USER_FLAG.ADS_UF_ACCOUNTDISABLE);
+                    AppendUserFlag(ADS_UF_ACCOUNTDISABLE);
                 }
                 else
                 {
-                    SetPropertyValue(UserAccountControl, currentValue & ~ADS_USER_FLAG.ADS_UF_ACCOUNTDISABLE);
+                    RemoveUserFlag(ADS_UF_ACCOUNTDISABLE);
                 }
-
-                // ReSharper restore BitwiseOperatorOnEnumWithoutFlags
             }
         }
 
@@ -186,6 +181,23 @@ namespace Bstm.DirectoryServices
 
         public DateTime? PasswordLastChanged => GetPropertyValue<DateTime?>(PwdLastSet);
 
+        public bool PasswordRequired
+        {
+            get => HasUserFlag(ADS_UF_PASSWD_NOTREQD);
+
+            set
+            {
+                if (value)
+                {
+                    AppendUserFlag(ADS_UF_PASSWD_NOTREQD);
+                }
+                else
+                {
+                    RemoveUserFlag(ADS_UF_PASSWD_NOTREQD);
+                }
+            }
+        }
+
         private void InitialzeManager()
         {
             var managerPath = CreateManagerPath();
@@ -215,5 +227,28 @@ namespace Bstm.DirectoryServices
         }
 
         public IMemberOfCollection MemberOf { get; }
+
+        private bool HasUserFlag(ADS_USER_FLAG flag) =>
+            GetPropertyValue<ADS_USER_FLAG>(UserAccountControl).HasFlag(flag);
+
+        private void AppendUserFlag(ADS_USER_FLAG flag)
+        {
+            // ReSharper disable BitwiseOperatorOnEnumWithoutFlags
+
+            var currentValue = GetPropertyValue<ADS_USER_FLAG>(UserAccountControl);
+            SetPropertyValue(UserAccountControl, currentValue | flag);
+
+            // ReSharper restore BitwiseOperatorOnEnumWithoutFlags
+        }
+
+        private void RemoveUserFlag(ADS_USER_FLAG flag)
+        {
+            // ReSharper disable BitwiseOperatorOnEnumWithoutFlags
+
+            var currentValue = GetPropertyValue<ADS_USER_FLAG>(UserAccountControl);
+            SetPropertyValue(UserAccountControl, currentValue & ~flag);
+
+            // ReSharper restore BitwiseOperatorOnEnumWithoutFlags
+        }
     }
 }

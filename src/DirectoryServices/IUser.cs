@@ -79,6 +79,8 @@ namespace Bstm.DirectoryServices
         [CanBeNull]
         DateTime? PasswordLastChanged { get; }
 
+        bool PasswordRequired { get; set; }
+
         IMemberOfCollection MemberOf { get; }
     }
 }
