@@ -184,6 +184,8 @@ namespace Bstm.DirectoryServices
             set => SetPropertyValue(MiddleName, value);
         }
 
+        public DateTime? PasswordLastChanged => GetPropertyValue<DateTime?>(PwdLastSet);
+
         private void InitialzeManager()
         {
             var managerPath = CreateManagerPath();

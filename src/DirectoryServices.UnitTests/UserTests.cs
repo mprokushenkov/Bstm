@@ -447,6 +447,18 @@ namespace Bstm.DirectoryServices.UnitTests
             user.GetPropertyValue<string>(MiddleName).Should().Be(otherName);
         }
 
+        [Theory]
+        [LocalTestData]
+        public void PasswordLastChangedShouldBeRead(IUser user)
+        {
+            // Fixture setup
+            var passwordLastChanged = Fixture.Create<DateTime?>();
+            user.SetPropertyValue(PwdLastSet, passwordLastChanged);
+
+            // Exercise system and verify outcome
+            user.PasswordLastChanged.Should().Be(passwordLastChanged);
+        }
+
         private class LocalTestDataAttribute : AutoMoqDataAttribute
         {
             public LocalTestDataAttribute() : base(CreateFixture)

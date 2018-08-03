@@ -115,6 +115,9 @@ namespace Bstm.DirectoryServices
         public static DirectoryProperty MiddleName { get; } = new DirectoryProperty(
             "middleName", DirectoryPropertySyntax.UnicodeString, false, typeof(string), typeof(string));
 
+        public static DirectoryProperty PwdLastSet { get; } = new DirectoryProperty(
+            "pwdLastSet", DirectoryPropertySyntax.Interval, false, typeof(DateTime?), typeof(IADsLargeInteger));
+
         public DirectoryPropertySyntax Syntax { get; }
 
         public bool Multivalued { get; }

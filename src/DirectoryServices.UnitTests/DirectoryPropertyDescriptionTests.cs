@@ -71,6 +71,7 @@ namespace Bstm.DirectoryServices.UnitTests
             CheckPropertyCorrectDefined(GenerationQualifier, "generationQualifier", UnicodeString, false, typeof(string), typeof(string));
             CheckPropertyCorrectDefined(PhysicalDeliveryOfficeName, "physicalDeliveryOfficeName", UnicodeString, false, typeof(string), typeof(string));
             CheckPropertyCorrectDefined(MiddleName, "middleName", UnicodeString, false, typeof(string), typeof(string));
+            CheckPropertyCorrectDefined(PwdLastSet, "pwdLastSet", Interval, false, typeof(DateTime?), typeof(IADsLargeInteger));
         }
 
         private static void CheckPropertyCorrectDefined(

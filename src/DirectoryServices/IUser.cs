@@ -76,6 +76,9 @@ namespace Bstm.DirectoryServices
         [CanBeNull]
         string OtherName { get; set; }
 
+        [CanBeNull]
+        DateTime? PasswordLastChanged { get; }
+
         IMemberOfCollection MemberOf { get; }
     }
 }
