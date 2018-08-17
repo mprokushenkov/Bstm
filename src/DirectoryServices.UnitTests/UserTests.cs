@@ -519,6 +519,21 @@ namespace Bstm.DirectoryServices.UnitTests
             user.GetPropertyValue<string>(DirectoryProperty.PostalAddress).Should().Be(postalAddress);
         }
 
+        [Theory]
+        [LocalTestData]
+        public void PostalCodeShouldBeStored(IUser user)
+        {
+            // Fixture setup
+            var postalCode = Fixture.Create<string>();
+
+            // Exercise system
+            user.PostalCode = postalCode;
+
+            // Verify outcome
+            user.PostalCode.Should().Be(postalCode);
+            user.GetPropertyValue<string>(PostalCode).Should().Be(postalCode);
+        }
+
         private class LocalTestDataAttribute : AutoMoqDataAttribute
         {
             public LocalTestDataAttribute() : base(CreateFixture)

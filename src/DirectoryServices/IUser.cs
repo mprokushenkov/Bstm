@@ -83,6 +83,8 @@ namespace Bstm.DirectoryServices
 
         string PostalAddress { get; set; }
 
+        string PostalCode { get; set; }
+
         IMemberOfCollection MemberOf { get; }
     }
 }

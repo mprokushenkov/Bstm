@@ -204,6 +204,12 @@ namespace Bstm.DirectoryServices
             set => SetPropertyValue(DirectoryProperty.PostalAddress, value);
         }
 
+        public string PostalCode
+        {
+            get => GetPropertyValue<string>(DirectoryProperty.PostalCode);
+            set => SetPropertyValue(DirectoryProperty.PostalCode, value);
+        }
+
         private void InitialzeManager()
         {
             var managerPath = CreateManagerPath();

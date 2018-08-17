@@ -121,6 +121,9 @@ namespace Bstm.DirectoryServices
         public static DirectoryProperty PostalAddress { get; } = new DirectoryProperty(
             "postalAddress", DirectoryPropertySyntax.UnicodeString, false, typeof(string), typeof(string));
 
+        public static DirectoryProperty PostalCode { get; } = new DirectoryProperty(
+            "postalCode", DirectoryPropertySyntax.UnicodeString, false, typeof(string), typeof(string));
+
         public DirectoryPropertySyntax Syntax { get; }
 
         public bool Multivalued { get; }
