@@ -30,10 +30,9 @@ namespace Bstm.DirectoryServices.UnitTests
 
         [Theory]
         [LocalTestData]
-        public void DepartmentShouldBeStored(IUser user)
+        public void DepartmentShouldBeStored(IUser user, string department)
         {
             // Fixture setup
-            var department = Fixture.Create<string>();
 
             // Exercise system
             user.Department = department;
@@ -45,10 +44,9 @@ namespace Bstm.DirectoryServices.UnitTests
 
         [Theory]
         [LocalTestData]
-        public void DescriptionShouldBeStored(IUser user)
+        public void DescriptionShouldBeStored(IUser user, string description)
         {
             // Fixture setup
-            var description = Fixture.Create<string>();
 
             // Exercise system
             user.Description = description;
@@ -60,10 +58,9 @@ namespace Bstm.DirectoryServices.UnitTests
 
         [Theory]
         [LocalTestData]
-        public void DivisionShouldBeStored(IUser user)
+        public void DivisionShouldBeStored(IUser user, string division)
         {
             // Fixture setup
-            var division = Fixture.Create<string>();
 
             // Exercise system
             user.Division = division;
@@ -75,10 +72,9 @@ namespace Bstm.DirectoryServices.UnitTests
 
         [Theory]
         [LocalTestData]
-        public void EmailAddressShouldBeStored(IUser user)
+        public void EmailAddressShouldBeStored(IUser user, string emailAddress)
         {
             // Fixture setup
-            var emailAddress = Fixture.Create<string>();
 
             // Exercise system
             user.EmailAddress = emailAddress;
@@ -90,10 +86,9 @@ namespace Bstm.DirectoryServices.UnitTests
 
         [Theory]
         [LocalTestData]
-        public void EmployeeIdShouldBeStored(IUser user)
+        public void EmployeeIdShouldBeStored(IUser user, string employeeId)
         {
             // Fixture setup
-            var employeeId = Fixture.Create<string>();
 
             // Exercise system
             user.EmployeeId = employeeId;
@@ -105,10 +100,9 @@ namespace Bstm.DirectoryServices.UnitTests
 
         [Theory]
         [LocalTestData]
-        public void FaxNumberShouldBeStored(IUser user)
+        public void FaxNumberShouldBeStored(IUser user, string faxNumber)
         {
             // Fixture setup
-            var faxNumber = Fixture.Create<string>();
 
             // Exercise system
             user.FaxNumber = faxNumber;
@@ -120,10 +114,9 @@ namespace Bstm.DirectoryServices.UnitTests
 
         [Theory]
         [LocalTestData]
-        public void FirstNameShouldBeStored(IUser user)
+        public void FirstNameShouldBeStored(IUser user, string firstName)
         {
             // Fixture setup
-            var firstName = Fixture.Create<string>();
 
             // Exercise system
             user.FirstName = firstName;
@@ -135,10 +128,9 @@ namespace Bstm.DirectoryServices.UnitTests
 
         [Theory]
         [LocalTestData]
-        public void HomeDirectoryShouldBeStored(IUser user)
+        public void HomeDirectoryShouldBeStored(IUser user, string homeDirectory)
         {
             // Fixture setup
-            var homeDirectory = Fixture.Create<string>();
 
             // Exercise system
             user.HomeDirectory = homeDirectory;
@@ -150,10 +142,9 @@ namespace Bstm.DirectoryServices.UnitTests
 
         [Theory]
         [LocalTestData]
-        public void HomePageShouldBeStored(IUser user)
+        public void HomePageShouldBeStored(IUser user, string homePage)
         {
             // Fixture setup
-            var homePage = Fixture.Create<string>();
 
             // Exercise system
             user.HomePage = homePage;
@@ -165,10 +156,9 @@ namespace Bstm.DirectoryServices.UnitTests
 
         [Theory]
         [LocalTestData]
-        public void FullNameShouldBeStored(IUser user)
+        public void FullNameShouldBeStored(IUser user, string fullName)
         {
             // Fixture setup
-            var fullName = Fixture.Create<string>();
 
             // Exercise system
             user.FullName = fullName;
@@ -225,10 +215,9 @@ namespace Bstm.DirectoryServices.UnitTests
 
         [Theory]
         [LocalTestData]
-        public void AccountExpiresShouldBeStored(IUser user)
+        public void AccountExpiresShouldBeStored(IUser user, DateTime? accountExpires)
         {
             // Fixture setup
-            var accountExpires = Fixture.Create<DateTime?>();
 
             // Exercise system
             user.AccountExpires = accountExpires;
@@ -239,21 +228,21 @@ namespace Bstm.DirectoryServices.UnitTests
 
         [Theory]
         [LocalTestData]
-        public void BadLoginCountShouldBeRead(IUser user)
+        public void BadLoginCountShouldBeRead(IUser user, int badPwdCount)
         {
             // Fixture setup
-            user.SetPropertyValue(BadPwdCount, 2);
+            user.SetPropertyValue(BadPwdCount, badPwdCount);
 
             // Exercise system and verify outcome
-            user.BadLoginCount.Should().Be(2);
+            user.BadLoginCount.Should().Be(badPwdCount);
         }
 
         [Theory]
         [LocalTestData]
-        public void AccountLockedShouldBeRead(IUser user)
+        public void AccountLockedShouldBeRead(IUser user, long? lockoutTime)
         {
             // Fixture setup
-            user.SetPropertyValue(LockoutTime, 2L);
+            user.SetPropertyValue(LockoutTime, lockoutTime);
 
             // Exercise system and verify outcome
             user.AccountLocked.Should().BeTrue();
@@ -261,10 +250,9 @@ namespace Bstm.DirectoryServices.UnitTests
 
         [Theory]
         [LocalTestData]
-        public void LastFailedLoginAtShouldBeRead(IUser user)
+        public void LastFailedLoginAtShouldBeRead(IUser user, DateTime? lastFailedLogin)
         {
             // Fixture setup
-            var lastFailedLogin = Fixture.Create<DateTime?>();
             user.SetPropertyValue(BadPasswordTime, lastFailedLogin);
 
             // Exercise system and verify outcome
@@ -273,10 +261,9 @@ namespace Bstm.DirectoryServices.UnitTests
 
         [Theory]
         [LocalTestData]
-        public void LastLoginShouldBeRead(IUser user)
+        public void LastLoginShouldBeRead(IUser user, DateTime? lastLogin)
         {
             // Fixture setup
-            var lastLogin = Fixture.Create<DateTime?>();
             user.SetPropertyValue(LastLogon, lastLogin);
 
             // Exercise system and verify outcome
@@ -285,10 +272,9 @@ namespace Bstm.DirectoryServices.UnitTests
 
         [Theory]
         [LocalTestData]
-        public void LastLogoffShouldBeRead(IUser user)
+        public void LastLogoffShouldBeRead(IUser user, DateTime? lastLogoff)
         {
             // Fixture setup
-            var lastLogoff = Fixture.Create<DateTime?>();
             user.SetPropertyValue(LastLogoff, lastLogoff);
 
             // Exercise system and verify outcome
@@ -297,10 +283,9 @@ namespace Bstm.DirectoryServices.UnitTests
 
         [Theory]
         [LocalTestData]
-        public void LastNameShouldBeStored(IUser user)
+        public void LastNameShouldBeStored(IUser user, string lastName)
         {
             // Fixture setup
-            var lastName = Fixture.Create<string>();
 
             // Exercise system
             user.LastName = lastName;
@@ -312,10 +297,9 @@ namespace Bstm.DirectoryServices.UnitTests
 
         [Theory]
         [LocalTestData]
-        public void LoginScriptShouldBeStored(IUser user)
+        public void LoginScriptShouldBeStored(IUser user, string loginScript)
         {
             // Fixture setup
-            var loginScript = Fixture.Create<string>();
 
             // Exercise system
             user.LoginScript = loginScript;
@@ -327,41 +311,25 @@ namespace Bstm.DirectoryServices.UnitTests
 
         [Theory]
         [LocalTestData]
-        public void ManagerShouldBeRead(IUser user)
+        public void ManagerShouldBeStored(IUser user, IUser manager, DN managerDN)
         {
             // Fixture setup
-            var dn = DN.Parse("CN=manager,OU=users,DC=domain,DC=com");
-            user.SetPropertyValue(Manager, dn);
-
-            // Exercise system and verify outcome
-            user.Manager.Should().NotBeNull();
-            // ReSharper disable once PossibleNullReferenceException
-            user.Manager.Path.Should().Be(AdsPath.Parse("LDAP://CN=manager,OU=users,DC=domain,DC=com"));
-        }
-
-        [Theory]
-        [LocalTestData]
-        public void ManagerShouldBeChanged(IUser user)
-        {
-            // Fixture setup
-            var newManager = Fixture.Create<IUser>();
-            newManager.Setup(m => m.DistinguishedName).Returns(DN.Parse("CN=manager,OU=users,DC=domain,DC=com"));
+            manager.SetPropertyValue(DistinguishedName, managerDN);
 
             // Exercise system
-            user.Manager = newManager;
+            user.Manager = manager;
 
             // Verify outcome
-            user.Manager.Should().Be(newManager);
-            user.GetPropertyValue<DN>(Manager).Should().Be(newManager.DistinguishedName);
+            user.Manager.Should().Be(manager);
+            user.GetPropertyValue<DN>(Manager).Should().Be(managerDN);
         }
 
         [Theory]
         [LocalTestData]
-        public void ManagerShouldBeRemoved(IUser user)
+        public void ManagerShouldBeRemoved(IUser user, IUser manager, DN managerDN)
         {
             // Fixture setup
-            var manager = Fixture.Create<IUser>();
-            manager.Setup(m => m.DistinguishedName).Returns(DN.Parse("CN=manager,OU=users,DC=domain,DC=com"));
+            manager.SetPropertyValue(DistinguishedName, managerDN);
             user.Manager = manager;
 
             // Exercise system
@@ -374,10 +342,9 @@ namespace Bstm.DirectoryServices.UnitTests
 
         [Theory]
         [LocalTestData]
-        public void MaxStorageShouldBeStored(IUser user)
+        public void MaxStorageShouldBeStored(IUser user, long maxStorage)
         {
             // Fixture setup
-            var maxStorage = Fixture.Create<long>();
 
             // Exercise system
             user.MaxStorage = maxStorage;
@@ -389,10 +356,9 @@ namespace Bstm.DirectoryServices.UnitTests
 
         [Theory]
         [LocalTestData]
-        public void NamePrefixShouldBeStored(IUser user)
+        public void NamePrefixShouldBeStored(IUser user, string namePrefix)
         {
             // Fixture setup
-            var namePrefix = Fixture.Create<string>();
 
             // Exercise system
             user.NamePrefix = namePrefix;
@@ -404,10 +370,9 @@ namespace Bstm.DirectoryServices.UnitTests
 
         [Theory]
         [LocalTestData]
-        public void NameSuffixShouldBeStored(IUser user)
+        public void NameSuffixShouldBeStored(IUser user, string nameSuffix)
         {
             // Fixture setup
-            var nameSuffix = Fixture.Create<string>();
 
             // Exercise system
             user.NameSuffix = nameSuffix;
@@ -419,10 +384,9 @@ namespace Bstm.DirectoryServices.UnitTests
 
         [Theory]
         [LocalTestData]
-        public void OfficeLocationShouldBeStored(IUser user)
+        public void OfficeLocationShouldBeStored(IUser user, string officeLocation)
         {
             // Fixture setup
-            var officeLocation = Fixture.Create<string>();
 
             // Exercise system
             user.OficeLocation = officeLocation;
@@ -434,10 +398,9 @@ namespace Bstm.DirectoryServices.UnitTests
 
         [Theory]
         [LocalTestData]
-        public void OtherNameShouldBeStored(IUser user)
+        public void OtherNameShouldBeStored(IUser user, string otherName)
         {
             // Fixture setup
-            var otherName = Fixture.Create<string>();
 
             // Exercise system
             user.OtherName = otherName;
@@ -449,10 +412,9 @@ namespace Bstm.DirectoryServices.UnitTests
 
         [Theory]
         [LocalTestData]
-        public void PasswordLastChangedShouldBeRead(IUser user)
+        public void PasswordLastChangedShouldBeRead(IUser user, DateTime? passwordLastChanged)
         {
             // Fixture setup
-            var passwordLastChanged = Fixture.Create<DateTime?>();
             user.SetPropertyValue(PwdLastSet, passwordLastChanged);
 
             // Exercise system and verify outcome
@@ -506,10 +468,9 @@ namespace Bstm.DirectoryServices.UnitTests
 
         [Theory]
         [LocalTestData]
-        public void PostalAddressShouldBeStored(IUser user)
+        public void PostalAddressShouldBeStored(IUser user, string postalAddress)
         {
             // Fixture setup
-            var postalAddress = Fixture.Create<string>();
 
             // Exercise system
             user.PostalAddress = postalAddress;
@@ -521,10 +482,9 @@ namespace Bstm.DirectoryServices.UnitTests
 
         [Theory]
         [LocalTestData]
-        public void PostalCodeShouldBeStored(IUser user)
+        public void PostalCodeShouldBeStored(IUser user, string postalCode)
         {
             // Fixture setup
-            var postalCode = Fixture.Create<string>();
 
             // Exercise system
             user.PostalCode = postalCode;
@@ -553,6 +513,7 @@ namespace Bstm.DirectoryServices.UnitTests
                 user.DirectoryEntry.Path = AdsPath.Parse("LDAP://CN=John Doe,OU=users,DC=domain,DC=com");
 
                 fixture.Inject((IUser)user);
+                fixture.Inject(DN.Parse("CN=manager,OU=users,DC=domain,DC=com"));
 
                 return fixture;
             }

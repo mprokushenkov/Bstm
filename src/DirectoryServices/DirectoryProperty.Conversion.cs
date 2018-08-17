@@ -61,9 +61,9 @@ namespace Bstm.DirectoryServices
                         return DN.Parse(s);
                     case int i when NotionalType == typeof(ADS_USER_FLAG):
                         return (ADS_USER_FLAG) i;
-                    case IADsLargeInteger i when NotionalType == typeof(DateTime?) || NotionalType == typeof(DateTime):
+                    case IADsLargeInteger i when typeof(DateTime?).IsAssignableFrom(NotionalType):
                         return DateTimeFromLargeInteger(i);
-                    case IADsLargeInteger i when NotionalType == typeof(long?) || NotionalType == typeof(long?):
+                    case IADsLargeInteger i when typeof(long?).IsAssignableFrom(NotionalType):
                         return Int64FromLargeInteger(i);
                     default:
                         return value;
