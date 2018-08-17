@@ -1,8 +1,7 @@
 ﻿using System;
-using Bstm.Functional;
 using Xunit;
 
-namespace Functional.UnitTests
+namespace Bstm.Functional.UnitTests
 {
     public sealed class MaybeTests
     {
