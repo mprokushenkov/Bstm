@@ -494,6 +494,20 @@ namespace Bstm.DirectoryServices.UnitTests
             user.GetPropertyValue<string>(PostalCode).Should().Be(postalCode);
         }
 
+        [Theory]
+        [LocalTestData]
+        public void ProfilePathShouldBeStored(IUser user, string profilePath)
+        {
+            // Fixture setup
+
+            // Exercise system
+            user.ProfilePath = profilePath;
+
+            // Verify outcome
+            user.ProfilePath.Should().Be(profilePath);
+            user.GetPropertyValue<string>(ProfilePath).Should().Be(profilePath);
+        }
+
         private class LocalTestDataAttribute : AutoMoqDataAttribute
         {
             public LocalTestDataAttribute() : base(CreateFixture)

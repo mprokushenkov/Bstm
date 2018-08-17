@@ -127,6 +127,9 @@ namespace Bstm.DirectoryServices
         public static DirectoryProperty SeeAlso { get; } = new DirectoryProperty(
             "seeAlso", DirectoryPropertySyntax.DNString, true, typeof(DN), typeof(string));
 
+        public static DirectoryProperty ProfilePath { get; } = new DirectoryProperty(
+            "profilePath", DirectoryPropertySyntax.UnicodeString, false, typeof(string), typeof(string));
+
         public DirectoryPropertySyntax Syntax { get; }
 
         public bool Multivalued { get; }

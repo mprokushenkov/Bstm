@@ -89,6 +89,8 @@ namespace Bstm.DirectoryServices
         string PostalCode { get; set; }
 
         [NotNull]
+        string ProfilePath { get; set; }
+
         IMemberOfCollection MemberOf { get; }
 
         [NotNull]

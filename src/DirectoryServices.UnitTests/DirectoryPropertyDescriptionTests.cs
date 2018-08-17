@@ -75,6 +75,7 @@ namespace Bstm.DirectoryServices.UnitTests
             CheckPropertyCorrectDefined(DirectoryProperty.PostalAddress, "postalAddress", UnicodeString, false, typeof(string), typeof(string));
             CheckPropertyCorrectDefined(PostalCode, "postalCode", UnicodeString, false, typeof(string), typeof(string));
             CheckPropertyCorrectDefined(SeeAlso, "seeAlso", DNString, true, typeof(DN), typeof(string));
+            CheckPropertyCorrectDefined(ProfilePath, "profilePath", UnicodeString, false, typeof(string), typeof(string));
         }
 
         private static void CheckPropertyCorrectDefined(
