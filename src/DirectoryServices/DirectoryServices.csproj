@@ -59,6 +59,7 @@
     </Compile>
     <Compile Include="DirectoryObject.cs" />
     <Compile Include="DirectoryObjectCollection.cs" />
+    <Compile Include="DirectoryObjectCollection`1.cs" />
     <Compile Include="DirectoryProperty.Conversion.cs" />
     <Compile Include="DirectoryProperty.Description.cs" />
     <Compile Include="DirectoryPropertySyntax.cs" />
@@ -77,6 +78,7 @@
     <Compile Include="GuidName.cs" />
     <Compile Include="IAdsObjectName.cs" />
     <Compile Include="IDirectoryObject.cs" />
+    <Compile Include="IDirectoryObjectCollection.cs" />
     <Compile Include="IGroup.cs" />
     <Compile Include="IGroupMemberCollection.cs" />
     <Compile Include="IMemberOfCollection.cs" />

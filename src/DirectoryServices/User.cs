@@ -15,6 +15,7 @@ namespace Bstm.DirectoryServices
         public User([NotNull] DirectoryEntry directoryEntry) : base(directoryEntry)
         {
             MemberOf = new MemberOfCollection(this);
+            SeeAlso = new DirectoryObjectCollection(this, DirectoryProperty.SeeAlso);
         }
 
         public bool AccountDisabled
@@ -239,6 +240,8 @@ namespace Bstm.DirectoryServices
         }
 
         public IMemberOfCollection MemberOf { get; }
+
+        public IDirectoryObjectCollection SeeAlso { get; }
 
         private bool HasUserFlag(ADS_USER_FLAG flag) =>
             GetPropertyValue<ADS_USER_FLAG>(UserAccountControl).HasFlag(flag);

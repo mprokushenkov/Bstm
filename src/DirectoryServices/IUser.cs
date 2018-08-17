@@ -79,12 +79,19 @@ namespace Bstm.DirectoryServices
         [CanBeNull]
         DateTime? PasswordLastChanged { get; }
 
+        [CanBeNull]
         bool PasswordRequired { get; set; }
 
+        [CanBeNull]
         string PostalAddress { get; set; }
 
+        [CanBeNull]
         string PostalCode { get; set; }
 
+        [NotNull]
         IMemberOfCollection MemberOf { get; }
+
+        [NotNull]
+        IDirectoryObjectCollection SeeAlso { get; }
     }
 }

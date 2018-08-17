@@ -59,6 +59,7 @@
     </Compile>
     <Compile Include="AdsPathTests.cs" />
     <Compile Include="AdsProviderTests.cs" />
+    <Compile Include="DirectoryObjectCollectionTests.cs" />
     <Compile Include="DirectoryObjectTests.cs" />
     <Compile Include="DirectoryPropertyConversionTests.cs" />
     <Compile Include="DirectoryPropertySyntaxTests.cs" />
