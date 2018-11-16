@@ -1,0 +1,8 @@
+AutoFixture.Idioms
+AutoFixture.Xunit2
+AutoFixtureMoq
+FluentAssertions
+System.Collections.Concurrent
+System.ComponentModel.Annotations
+System.ComponentModel.Primitives
+xunit

@@ -1,0 +1,6 @@
+AutoFixture.Xunit2
+AutoFixtureMoq
+Bstm.EqualityTests
+FluentAssertions
+FsCheck.Xunit
+xunit

@@ -1,0 +1,19 @@
+source "C:\Program Files (x86)\Microsoft SDKs\NuGetPackages\"
+source https://api.nuget.org/v3/index.json
+
+framework: auto-detect
+
+nuget AutoFixture.Xunit2 4.5.0
+nuget AutoFixtureMoq 1.0.0
+nuget Bstm.EqualityTests 1.0.1
+nuget Castle.Windsor 4.1.0
+nuget CompareNETObjects 4.55.0.0
+nuget FluentAssertions 5.4.1
+nuget FsCheck.Xunit 2.11.0
+nuget JetBrains.Annotations 11.1.0
+nuget NLog 4.5.7
+nuget System.Collections.Concurrent 4.3.0
+nuget System.ComponentModel.Annotations 4.5.0
+nuget System.ComponentModel.Primitives 4.3.0
+nuget System.Reactive.Interfaces 4.0.0
+nuget xunit 2.4.0

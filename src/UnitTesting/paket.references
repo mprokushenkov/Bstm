@@ -1,0 +1,9 @@
+AutoFixture.Idioms
+AutoFixture.Xunit2
+AutoFixtureMoq
+Castle.Windsor
+CompareNETObjects
+FluentAssertions
+JetBrains.Annotations
+System.Reactive.Interfaces
+xunit
