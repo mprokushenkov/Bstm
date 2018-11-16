@@ -1,0 +1,7 @@
+AutoFixture.Xunit2
+AutoFixtureMoq
+Bstm.EqualityTests
+FluentAssertions
+more.xunit.runner.visualstudio
+xunit
+xunit.runner.console
