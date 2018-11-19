@@ -524,9 +524,9 @@ namespace Bstm.DirectoryServices.UnitTests
                     .Without(u => u.Manager)
                     .Create();
 
-                user.DirectoryEntry.Path = AdsPath.Parse("LDAP://CN=John Doe,OU=users,DC=domain,DC=com");
+                user.SetPropertyValue(DistinguishedName, DN.Parse("CN=John Doe,OU=users,DC=domain,DC=com"));
 
-                fixture.Inject((IUser)user);
+                fixture.Inject((IUser) user);
                 fixture.Inject(DN.Parse("CN=manager,OU=users,DC=domain,DC=com"));
 
                 return fixture;
