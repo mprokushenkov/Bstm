@@ -20,8 +20,7 @@ namespace Bstm.Common.UnitTests.Primitives
             Action call = () => constraint.CheckConstraint(value);
 
             // Verify outcome
-            call
-                .Should().Throw<ArgumentOutOfRangeException>()
+            call.Should().Throw<ArgumentOutOfRangeException>()
                 .WithMessage("Value length must be equal '2' but '*'.");
 
         }
