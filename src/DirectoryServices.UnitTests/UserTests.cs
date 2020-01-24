@@ -389,10 +389,10 @@ namespace Bstm.DirectoryServices.UnitTests
             // Fixture setup
 
             // Exercise system
-            user.OficeLocation = officeLocation;
+            user.OfficeLocation = officeLocation;
 
             // Verify outcome
-            user.OficeLocation.Should().Be(officeLocation);
+            user.OfficeLocation.Should().Be(officeLocation);
             user.GetPropertyValue<string>(PhysicalDeliveryOfficeName).Should().Be(officeLocation);
         }
 

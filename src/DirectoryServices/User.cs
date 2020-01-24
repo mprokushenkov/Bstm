@@ -129,7 +129,7 @@ namespace Bstm.DirectoryServices
             {
                 if (!managerInitialized)
                 {
-                    InitialzeManager();
+                    InitializeManager();
                 }
 
                 return manager;
@@ -168,7 +168,7 @@ namespace Bstm.DirectoryServices
             set => SetPropertyValue(GenerationQualifier, value);
         }
 
-        public string OficeLocation
+        public string OfficeLocation
         {
             get => GetPropertyValue<string>(PhysicalDeliveryOfficeName);
             set => SetPropertyValue(PhysicalDeliveryOfficeName, value);
@@ -213,11 +213,11 @@ namespace Bstm.DirectoryServices
 
         public string ProfilePath
         {
-            get => GetPropertyValue<string>(DirectoryProperty.ProfilePath);
+            get => GetPropertyValue<string>(DirectoryProperty.ProfilePath) ?? string.Empty;
             set => SetPropertyValue(DirectoryProperty.ProfilePath, value);
         }
 
-        private void InitialzeManager()
+        private void InitializeManager()
         {
             var managerPath = CreateManagerPath();
 

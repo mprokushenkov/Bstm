@@ -26,6 +26,14 @@ namespace Bstm.DirectoryServices.UnitTests
             assertion.Verify(typeof(Group));
         }
 
+        [Fact]
+        public void Foo()
+        {
+            var filter = SearchFilter.Equality(DirectoryProperty.SamAccountName.ToString(), "16696763");
+            var provider = new DirectoryProvider();
+            var user = provider.FindOne(AdsPath.Parse("LDAP://DC=sigma,DC=sbrf,DC=ru"), filter);
+        }
+
         [Theory]
         [InlineData(GroupScope.Global)]
         [InlineData(GroupScope.Local)]

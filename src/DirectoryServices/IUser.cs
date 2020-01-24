@@ -71,7 +71,7 @@ namespace Bstm.DirectoryServices
         string NameSuffix { get; set; }
 
         [CanBeNull]
-        string OficeLocation { get; set; }
+        string OfficeLocation { get; set; }
 
         [CanBeNull]
         string OtherName { get; set; }
